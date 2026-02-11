@@ -1339,14 +1339,25 @@
                 51: 'Llovizna ligera',
                 53: 'Llovizna moderada',
                 55: 'Llovizna intensa',
-                61: 'Llovizna con chuvasco',
-                63: 'Llovizna fuerte',
-                65: 'Nieve',
-                71: 'Nevada',
-                80: 'Chubascas intensas',
-                81: 'Aguacero',
-                82: 'Tormentas',
-                95: 'Tormenta electrica'
+                56: 'Llovizna helada ligera',
+                57: 'Llovizna helada intensa',
+                61: 'Lluvia ligera',
+                63: 'Lluvia moderada',
+                65: 'Lluvia intensa',
+                66: 'Lluvia helada ligera',
+                67: 'Lluvia helada intensa',
+                71: 'Nevada ligera',
+                73: 'Nevada moderada',
+                75: 'Nevada intensa',
+                77: 'Granizo fino',
+                80: 'Chubascos ligeros',
+                81: 'Chubascos moderados',
+                82: 'Chubascos intensos',
+                85: 'Chubascos de nieve ligeros',
+                86: 'Chubascos de nieve intensos',
+                95: 'Tormenta eléctrica',
+                96: 'Tormenta con granizo ligero',
+                99: 'Tormenta con granizo intenso'
             };
             return descriptions[code] || 'Variable';
         }
@@ -1357,24 +1368,58 @@
             else if (code <= 2) icon = 'cloud-sun';
             else if (code === 3) icon = 'cloud';
             else if (code <= 48) icon = 'cloud-fog';
-            else if (code <= 55) icon = 'cloud-drizzle';
-            else if (code <= 65) icon = 'cloud-rain';
-            else if (code <= 71) icon = 'cloud-snow';
-            else if (code <= 73) icon = 'cloud-snow';
-            else if (code === 80) icon = 'cloud-lightning';
-            else if (code === 95) icon = 'cloud-lightning';
+            else if (code <= 57) icon = 'cloud-drizzle';
+            else if (code <= 67) icon = 'cloud-rain';
+            else if (code <= 77) icon = 'cloud-snow';
+            else if (code <= 82) icon = 'cloud-rain';
+            else if (code <= 86) icon = 'cloud-snow';
+            else if (code >= 95) icon = 'cloud-lightning';
 
-            const paths = {
-                'sun': '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 2a12 12 12 12 12 12 12"/><path d="M12 2a12 12 12 12 12 12"/>',
-                'cloud-sun': '<path d="M12 2v2"/><path d="M14 2H6a2 2 0 0 2 2v16a2 2 0 0 2 2h12a2 2 0 0 2 2V8z"/><path d="M14 11a5 5 0 0 7.54.54l-3 3a5 5 0 0 7.07-7.07l-1.72 1.71"/>',
-                'cloud': '<path d="M14 2H6a2 2 0 0 0 2 2v16a2 2 0 0 2 2h12a2 2 0 0 2 2V8z"/><circle cx="12" cy="12" r="10"/>',
-                'cloud-fog': '<path d="M14 2H6a2 2 0 0 0 2 2v16a2 2 0 0 2 2V8z"/><path d="M8 14s1 2-2 2 0 7.54.54l-3 3a5 5 0 0 0 7.07 7.07l1.72 1.71"/><path d="M14 11a5 5 0 0 7.54-.54l-3 3a5 5 0 0 0 2 2V9"/>',
-                'cloud-drizzle': '<path d="M14 2H6a2 2 0 0 0 2 2v16a2 2 0 0 2 2h12a2 2 0 0 2 2V8z"/><path d="M14 2.6c.6 4 2 0 0 6 1.6 1.2 1.6 1.6 1.2 1.6"/><path d="M14.3.4.3 0 0 6.7 0.3 1.8 2 6 1.8 2 6"/>',
-                'cloud-rain': '<path d="M14 2H6a2 2 0 0 0 2 2v16a2 2 0 0 2 2h12a2 2 0 0 2 2V8z"/><path d="M14 11a5 5 0 0 7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.72 1.71"/>',
-                'cloud-snow': '<path d="M8 14s1 2-2 2 0 7.54-.54l-3 3a5 5 0 0 0 2 2V9z"/><circle cx="12" cy="12" r="10"/>',
-                'cloud-lightning': '<path d="M19 16v-2a4 4 0 0 0 2 0 0 0 2 2v16a2 2 0 0 2 2.2V9"/><path d="M13 16v-8"/><path d="M7 2v-4a1 4 0 1 0 1.7-2.4a1 4 0 0 0 2 2V8z"/>'
+            const svgs = {
+                'sun': `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="4"/>
+                    <path d="M12 2v2"/><path d="M12 20v2"/>
+                    <path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/>
+                    <path d="M2 12h2"/><path d="M20 12h2"/>
+                    <path d="M6.34 17.66l-1.41 1.41"/><path d="M19.07 4.93l-1.41 1.41"/>
+                </svg>`,
+                'cloud-sun': `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2v2"/>
+                    <path d="M4.93 4.93l1.41 1.41"/>
+                    <path d="M20 12h2"/>
+                    <path d="M19.07 4.93l-1.41 1.41"/>
+                    <path d="M15.947 12.65a4 4 0 0 0-5.925-4.128"/>
+                    <path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"/>
+                </svg>`,
+                'cloud': `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+                </svg>`,
+                'cloud-fog': `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/>
+                    <path d="M16 17H7"/><path d="M17 21H9"/>
+                </svg>`,
+                'cloud-drizzle': `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/>
+                    <path d="M8 19v1"/><path d="M8 14v1"/>
+                    <path d="M16 19v1"/><path d="M16 14v1"/>
+                    <path d="M12 21v1"/><path d="M12 16v1"/>
+                </svg>`,
+                'cloud-rain': `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/>
+                    <path d="M16 14v6"/><path d="M8 14v6"/><path d="M12 16v6"/>
+                </svg>`,
+                'cloud-snow': `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/>
+                    <path d="M8 15h.01"/><path d="M8 19h.01"/>
+                    <path d="M12 17h.01"/><path d="M12 21h.01"/>
+                    <path d="M16 15h.01"/><path d="M16 19h.01"/>
+                </svg>`,
+                'cloud-lightning': `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 16.326A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 .5 8.973"/>
+                    <path d="m13 12-3 5h4l-3 5"/>
+                </svg>`
             };
-            return paths[icon] || paths['sun'];
+            return svgs[icon] || svgs['sun'];
         }
 
         // Traffic simulation (in real app, use TomTom or Google Traffic API)
@@ -1461,7 +1506,6 @@
                     document.getElementById('cauterets-condition').textContent = getWeatherDescription(data.current.weather_code);
                     document.getElementById('cauterets-wind').textContent = `${Math.round(data.current.wind_speed_10m)} km/h`;
                     document.getElementById('cauterets-humidity').textContent = `${data.current.relative_humidity_2m}%`;
-                }
 
                     const iconHtml = getWeatherIcon(data.current.weather_code);
                     document.getElementById('cauterets-weather-icon').innerHTML = iconHtml;
@@ -1470,6 +1514,12 @@
                 console.error('Error fetching Cauterets weather:', error);
             }
         }
+
+        // Initialize on page load
+        drawAllRoutes();
+        fetchWeather();
+        // Refresh weather every 5 minutes
+        setInterval(fetchWeather, 300000);
     </script>
 
     <!-- Cauterets Detail Modal -->
