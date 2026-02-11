@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  webmaps:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: webmaps
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    networks:
+      - webmap-network
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Optional: MySQL database for future features
+  webmapdb:
+    image: mysql:8.0
+    container_name: webmapdb
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-webmap2025}
+      MYSQL_DATABASE: webmap
+      MYSQL_USER: webmap_user
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-webmap2025}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - webmap-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  webmap-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
