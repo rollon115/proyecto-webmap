@@ -4,18 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Viaje Pirineos 2025 - 4 Dias de Aventura</title>
-
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-
-    <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
-
     <style>
         :root {
             --primary: #6366f1;
@@ -23,7 +16,6 @@
             --secondary: #10b981;
             --accent: #f59e0b;
             --danger: #ef4444;
-
             --bg-dark: #0f172a;
             --bg-card: rgba(30, 41, 59, 0.7);
             --bg-card-solid: #1e293b;
@@ -31,20 +23,12 @@
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
             --text-muted: #64748b;
-
             --glass-bg: rgba(30, 41, 59, 0.6);
             --glass-border: rgba(255, 255, 255, 0.08);
-
             --radius: 16px;
             --radius-sm: 8px;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg-dark);
@@ -52,816 +36,262 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
-
-        /* Animated background */
         .bg-gradient {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background:
-                radial-gradient(ellipse at 20% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
+                radial-gradient(ellipse at 20% 20%, rgba(99,102,241,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(16,185,129,0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(245,158,11,0.05) 0%, transparent 50%);
             z-index: -1;
         }
-
-        /* Header */
         .header {
-            position: fixed;
-            top: 16px;
-            left: 16px;
-            right: 16px;
-            z-index: 1000;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius);
-            padding: 16px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: var(--glass-shadow);
+            position: fixed; top: 16px; left: 16px; right: 16px; z-index: 1000;
+            background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: var(--radius);
+            padding: 16px 24px; display: flex; justify-content: space-between; align-items: center;
         }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
+        .logo { display: flex; align-items: center; gap: 12px; }
         .logo-icon {
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
         }
-
         .logo-text h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            font-weight: 700;
+            font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700;
             background: linear-gradient(135deg, var(--text-primary), var(--primary-light));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
         }
-
-        .logo-text span {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .header-dates {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .header-dates i {
-            width: 18px;
-            height: 18px;
-            color: var(--accent);
-        }
-
-        /* Main Layout */
+        .logo-text span { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
+        .header-dates { display: flex; align-items: center; gap: 8px; color: var(--text-secondary); font-size: 0.9rem; }
+        .header-dates i { width: 18px; height: 18px; color: var(--accent); }
         .main-container {
-            padding: 100px 16px 16px;
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            grid-template-rows: auto auto;
-            gap: 16px;
-            min-height: 100vh;
+            padding: 100px 16px 16px; display: grid;
+            grid-template-columns: 1fr 350px; gap: 16px; min-height: 100vh;
         }
-
-        /* Map Container */
         .map-section {
             grid-row: 1 / 3;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--glass-shadow);
-            position: relative;
+            background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: var(--radius);
+            overflow: hidden; position: relative;
         }
-
         .map-header {
-            position: absolute;
-            top: 16px;
-            left: 16px;
-            right: 16px;
-            z-index: 500;
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
+            position: absolute; top: 16px; left: 16px; right: 16px; z-index: 500;
+            display: flex; gap: 12px; flex-wrap: wrap;
         }
-
         .map-badge {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 8px 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
+            background: var(--glass-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border); border-radius: 20px;
+            padding: 8px 16px; display: flex; align-items: center; gap: 8px;
+            font-size: 0.85rem; color: var(--text-secondary);
         }
-
-        .map-badge.active {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: white;
-            border-color: transparent;
-        }
-
-        .map-badge i {
-            width: 16px;
-            height: 16px;
-        }
-
-        #map {
-            width: 100%;
-            height: 100%;
-            min-height: 500px;
-        }
-
-        /* Custom Map Markers */
+        .map-badge.active { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white; border-color: transparent; }
+        .map-badge i { width: 16px; height: 16px; }
+        #map { width: 100%; height: 100%; min-height: 500px; }
         .custom-marker {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            width: 36px;
-            height: 36px;
-            border-radius: 50% 50% 50% 0;
-            transform: rotate(-45deg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
-            border: 3px solid white;
+            width: 36px; height: 36px; border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg); display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 12px rgba(99,102,241,0.4); border: 3px solid white;
         }
-
-        .custom-marker i {
-            transform: rotate(45deg);
-            color: white;
-            width: 18px;
-            height: 18px;
-        }
-
-        .marker-guardo { background: linear-gradient(135deg, #10b981, #34d399); }
-        .marker-biarritz { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
-        .marker-pau { background: linear-gradient(135deg, #ec4899, #f472b6); }
-        .marker-lourdes { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
-        .marker-cauterets { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
-
-        /* Popup Styling */
+        .custom-marker svg { transform: rotate(45deg); }
         .leaflet-popup-content-wrapper {
-            background: var(--bg-card-solid);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-sm);
-            box-shadow: var(--glass-shadow);
+            background: var(--bg-card-solid); border: 1px solid var(--glass-border); border-radius: var(--radius-sm);
         }
-
-        .leaflet-popup-content {
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            margin: 12px 16px;
-        }
-
-        .leaflet-popup-content h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .leaflet-popup-content p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        .leaflet-popup-tip {
-            display: inline-block;
-            background: rgba(99, 102, 241, 0.2);
-            color: var(--primary-light);
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            margin-top: 8px;
-        }
-
+        .leaflet-popup-content { color: var(--text-primary); font-family: 'Inter', sans-serif; margin: 12px 16px; }
+        .leaflet-popup-content h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .leaflet-popup-content p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
         .popup-tag {
-            display: inline-block;
-            background: rgba(99, 102, 241, 0.2);
-            color: var(--primary-light);
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            margin-top: 8px;
+            display: inline-block; background: rgba(99,102,241,0.2); color: var(--primary-light);
+            padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; margin-top: 8px;
         }
-
-        .popup-details {
-            margin-top: 12px;
-            padding-top: 10px;
-            border-top: 1px solid var(--glass-border);
-        }
-
-        .popup-details h4 {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-
-        .pistas-grid {
-            display: grid;
-            gap: 4px;
-        }
-
-        .pista {
-            font-size: 0.75rem;
-            padding: 4px 8px;
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .zonas-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .zona-tag {
-            font-size: 0.7rem;
-            padding: 3px 8px;
-            border-radius: 12px;
-            background: rgba(139, 92, 246, 0.2);
-            color: #a78bfa;
-        }
-
-        .servicios-text, .remontes-text {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-        }
-
-        /* Detail Modal */
-        .detail-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            z-index: 2000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .detail-modal.active {
-            display: flex;
-        }
-
-        .detail-content {
-            background: var(--bg-card-solid);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius);
-            max-width: 800px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-        }
-
-        .detail-header {
-            position: sticky;
-            top: 0;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            padding: 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 10;
-        }
-
-        .detail-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .detail-close {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .detail-close:hover {
-            background: rgba(255,255,255,0.3);
-        }
-
-        .detail-body {
-            padding: 24px;
-        }
-
-        .detail-section {
-            margin-bottom: 24px;
-        }
-
-        .detail-section h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--primary-light);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .detail-section h3 i {
-            width: 20px;
-            height: 20px;
-            color: var(--primary-light);
-        }
-
-        .detail-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-        }
-
-        .detail-card {
-            background: rgba(255,255,255,0.05);
-            border-radius: var(--radius-sm);
-            padding: 16px;
-        }
-
-        .detail-card.highlight {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.1));
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-
-        .detail-card h4 {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
-
-        .detail-card .price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--secondary);
-        }
-
-        .detail-card .price span {
-            font-size: 0.9rem;
-            font-weight: 400;
-            color: var(--text-muted);
-        }
-
-        .detail-card p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-top: 8px;
-        }
-
-        .detail-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .detail-list li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .detail-list li:last-child {
-            border-bottom: none;
-        }
-
-        .detail-list .label {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-
-        .detail-list .value {
-            font-weight: 600;
-        }
-
-        .detail-weather {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.1));
-            border-radius: var(--radius-sm);
-            padding: 16px;
-        }
-
-        .detail-weather-icon {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-        }
-
-        .detail-weather-info h4 {
-            font-size: 2rem;
-            font-weight: 700;
-        }
-
-        .detail-weather-info p {
-            margin: 0;
-        }
-
-        /* Side Panel */
-        .side-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        /* Cards */
+        .side-panel { display: flex; flex-direction: column; gap: 16px; overflow-y: auto; max-height: calc(100vh - 116px); }
         .card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius);
-            padding: 20px;
-            box-shadow: var(--glass-shadow);
+            background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: var(--radius); padding: 20px;
         }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-        }
-
-        .card-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-        }
-
-        .card-title i {
-            width: 20px;
-            height: 20px;
-            color: var(--primary-light);
-        }
-
+        .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+        .card-title { display: flex; align-items: center; gap: 10px; font-size: 1rem; font-weight: 600; }
+        .card-title i { width: 20px; height: 20px; color: var(--primary-light); }
         .card-badge {
-            background: rgba(16, 185, 129, 0.2);
-            color: var(--secondary);
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 500;
+            background: rgba(16,185,129,0.2); color: var(--secondary);
+            padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 500;
         }
-
-        /* Weather Card */
-        .weather-main {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 20px;
+        .weather-main { display: flex; align-items: center; gap: 20px; margin-bottom: 16px; }
+        .weather-icon { width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; }
+        .weather-info h2 { font-size: 2.2rem; font-weight: 700; line-height: 1; }
+        .weather-info p { margin: 0; }
+        .weather-location { display: flex; align-items: center; gap: 6px; color: var(--text-muted); font-size: 0.85rem; margin-top: 4px; }
+        .weather-location i { width: 14px; height: 14px; color: var(--accent); }
+        .weather-details { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+        .weather-detail { text-align: center; padding: 10px 6px; background: rgba(255,255,255,0.03); border-radius: var(--radius-sm); }
+        .weather-detail i { width: 16px; height: 16px; color: var(--text-muted); margin-bottom: 4px; }
+        .weather-detail .value { font-size: 1rem; font-weight: 600; display: block; }
+        .weather-detail .label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .forecast-section { border-top: 1px solid var(--glass-border); padding-top: 14px; }
+        .forecast-title { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-weight: 600; }
+        .forecast-days { display: flex; gap: 8px; }
+        .forecast-day {
+            flex: 1; text-align: center; padding: 10px 6px;
+            background: rgba(255,255,255,0.03); border-radius: var(--radius-sm);
         }
-
-        .weather-icon {
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-        }
-
-        .weather-info h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            line-height: 1;
-        }
-
-        .weather-info p {
-            margin: 0;
-        }
-
-        .weather-location {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-top: 4px;
-        }
-
-        .weather-location i {
-            width: 14px;
-            height: 14px;
-            color: var(--accent);
-        }
-
-        .weather-details {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
-
-        .weather-detail {
-            text-align: center;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: var(--radius-sm);
-        }
-
-        .weather-detail i {
-            width: 18px;
-            height: 18px;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-
-        .weather-detail .value {
-            font-size: 1.1rem;
-            font-weight: 600;
-            display: block;
-        }
-
-        .weather-detail .label {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Traffic Card */
-        .traffic-status {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-
-        .traffic-indicator {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .traffic-indicator.good {
-            background: rgba(16, 185, 129, 0.2);
-            color: var(--secondary);
-        }
-
-        .traffic-indicator.moderate {
-            background: rgba(245, 158, 11, 0.2);
-            color: var(--accent);
-        }
-
-        .traffic-indicator.bad {
-            background: rgba(239, 68, 68, 0.2);
-            color: var(--danger);
-        }
-
-        .traffic-info h3 {
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .traffic-info p {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-
-        .traffic-routes {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
+        .forecast-day .day-name { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px; }
+        .forecast-day .day-icon { width: 32px; height: 32px; margin: 0 auto 6px; }
+        .forecast-day .day-temps { font-size: 0.8rem; }
+        .forecast-day .day-max { font-weight: 600; color: var(--text-primary); }
+        .forecast-day .day-min { color: var(--text-muted); }
+        .traffic-routes { display: flex; flex-direction: column; gap: 8px; }
         .route-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: all 0.2s;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px; background: rgba(255,255,255,0.03); border-radius: var(--radius-sm);
+            cursor: pointer; transition: all 0.2s; border: 1px solid transparent;
         }
-
-        .route-item:hover {
-            background: rgba(255, 255, 255, 0.06);
+        .route-item:hover { background: rgba(255,255,255,0.06); border-color: var(--glass-border); }
+        .route-item.active { background: rgba(99,102,241,0.15); border-color: var(--primary); }
+        .route-name { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
+        .route-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+        .route-time { font-weight: 600; color: var(--secondary); font-size: 0.85rem; }
+        .route-detail-panel {
+            margin-top: 12px; padding: 16px;
+            background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.2);
+            border-radius: var(--radius-sm); display: none;
         }
-
-        .route-name {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .route-detail-panel.visible { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+        .route-detail-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .route-detail-header h4 { font-size: 0.95rem; font-weight: 600; color: var(--primary-light); }
+        .route-detail-close {
+            background: none; border: none; color: var(--text-muted); cursor: pointer;
+            width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
         }
-
-        .route-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
+        .route-detail-close:hover { color: var(--text-primary); }
+        .route-detail-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+        .route-stat {
+            text-align: center; padding: 10px;
+            background: rgba(255,255,255,0.05); border-radius: var(--radius-sm);
         }
-
-        .route-time {
-            font-weight: 600;
-            color: var(--secondary);
+        .route-stat .stat-value { font-size: 1.2rem; font-weight: 700; display: block; }
+        .route-stat .stat-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
+        .route-stat.km .stat-value { color: var(--primary-light); }
+        .route-stat.time .stat-value { color: var(--secondary); }
+        .route-weather-mini {
+            display: flex; align-items: center; gap: 12px; padding: 10px;
+            background: rgba(245,158,11,0.1); border-radius: var(--radius-sm);
         }
-
-        /* POI List */
-        .poi-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
+        .route-weather-mini .rw-icon { width: 36px; height: 36px; flex-shrink: 0; }
+        .route-weather-mini .rw-info { flex: 1; }
+        .route-weather-mini .rw-temp { font-size: 1.1rem; font-weight: 700; }
+        .route-weather-mini .rw-desc { font-size: 0.8rem; color: var(--text-secondary); }
+        .route-weather-mini .rw-label { font-size: 0.7rem; color: var(--text-muted); }
+        .poi-list { display: flex; flex-direction: column; gap: 8px; }
         .poi-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: all 0.2s;
+            display: flex; align-items: center; gap: 12px; padding: 10px;
+            background: rgba(255,255,255,0.03); border-radius: var(--radius-sm);
+            cursor: pointer; transition: all 0.2s;
         }
-
-        .poi-item:hover {
-            background: rgba(255, 255, 255, 0.06);
-            transform: translateX(4px);
-        }
-
+        .poi-item:hover { background: rgba(255,255,255,0.06); transform: translateX(4px); }
         .poi-marker {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
+            width: 36px; height: 36px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
         }
-
-        .poi-marker i {
-            width: 20px;
-            height: 20px;
-            color: white;
-        }
-
-        .poi-info {
-            flex: 1;
-        }
-
-        .poi-info h4 {
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-
-        .poi-info p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
+        .poi-marker i { width: 18px; height: 18px; color: white; }
+        .poi-info { flex: 1; }
+        .poi-info h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 2px; }
+        .poi-info p { font-size: 0.75rem; color: var(--text-muted); }
         .poi-day {
-            font-size: 0.75rem;
-            background: rgba(99, 102, 241, 0.2);
-            color: var(--primary-light);
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-weight: 500;
+            font-size: 0.7rem; background: rgba(99,102,241,0.2); color: var(--primary-light);
+            padding: 3px 8px; border-radius: 12px; font-weight: 500; white-space: nowrap;
         }
-
-        /* Loading Animation */
-        .loading {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
         .loading-spinner {
-            width: 24px;
-            height: 24px;
-            border: 2px solid var(--glass-border);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
+            width: 24px; height: 24px; border: 2px solid var(--glass-border);
+            border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite;
         }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-            from { transform: rotate(0deg); }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 3px; }
+        .detail-modal {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            z-index: 2000; display: none; align-items: center; justify-content: center;
+            padding: 20px; overflow-y: auto;
         }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
+        .detail-modal.active { display: flex; }
+        .detail-content {
+            background: var(--bg-card-solid); border: 1px solid var(--glass-border);
+            border-radius: var(--radius); max-width: 800px; width: 100%; max-height: 90vh; overflow-y: auto;
         }
-
-        ::-webkit-scrollbar-track {
-            background: transparent;
+        .detail-header {
+            position: sticky; top: 0; padding: 24px;
+            display: flex; justify-content: space-between; align-items: center; z-index: 10;
         }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--glass-border);
-            border-radius: 3px;
+        .detail-header h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: white; }
+        .detail-close {
+            background: rgba(255,255,255,0.2); border: none; color: white;
+            width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
         }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.2);
+        .detail-close:hover { background: rgba(255,255,255,0.3); }
+        .detail-body { padding: 24px; }
+        .detail-section { margin-bottom: 24px; }
+        .detail-section h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 12px; color: var(--primary-light); }
+        .detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+        .detail-card { background: rgba(255,255,255,0.05); border-radius: var(--radius-sm); padding: 16px; }
+        .detail-card.highlight { background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(16,185,129,0.1)); border: 1px solid rgba(16,185,129,0.3); }
+        .detail-card h4 { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px; }
+        .detail-card .price { font-size: 1.5rem; font-weight: 700; color: var(--secondary); }
+        .detail-card .price span { font-size: 0.9rem; font-weight: 400; color: var(--text-muted); }
+        .detail-card p { font-size: 0.85rem; color: var(--text-secondary); margin-top: 8px; }
+        .detail-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .detail-list li { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--glass-border); }
+        .detail-list li:last-child { border-bottom: none; }
+        .detail-list .label { color: var(--text-secondary); font-size: 0.85rem; }
+        .detail-list .value { font-weight: 600; }
+        .detail-weather {
+            display: flex; gap: 20px; align-items: center;
+            background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(245,158,11,0.1));
+            border-radius: var(--radius-sm); padding: 16px;
         }
-
-        /* Responsive */
+        .detail-weather-icon { width: 40px; height: 40px; }
+        .detail-weather-info h4 { font-size: 2rem; font-weight: 700; }
+        .beginner-badge {
+            font-size: 0.7rem; padding: 4px 10px; border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent), #fbbf24); color: #1e293b; font-weight: 700;
+        }
+        .beginner-tips { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.2); border-radius: var(--radius-sm); padding: 16px; }
+        .beginner-tips h4 { font-size: 0.9rem; margin-bottom: 10px; color: var(--accent); }
+        .beginner-tips ul { padding-left: 20px; }
+        .beginner-tips li { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; line-height: 1.5; }
+        .detail-links { display: flex; gap: 12px; flex-wrap: wrap; }
+        .detail-link {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--primary); color: white; padding: 10px 16px;
+            border-radius: 8px; text-decoration: none; font-size: 0.85rem; font-weight: 500;
+        }
+        .popup-details { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--glass-border); }
+        .popup-details h4 { font-size: 0.8rem; font-weight: 600; margin-bottom: 8px; }
+        .pistas-grid { display: grid; gap: 4px; }
+        .pista { font-size: 0.75rem; padding: 4px 8px; border-radius: 4px; background: rgba(255,255,255,0.05); }
+        .zonas-list { display: flex; flex-wrap: wrap; gap: 6px; }
+        .zona-tag { font-size: 0.7rem; padding: 3px 8px; border-radius: 12px; background: rgba(139,92,246,0.2); color: #a78bfa; }
         @media (max-width: 1024px) {
-            .main-container {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto;
-            }
-
-            .map-section {
-                grid-row: auto;
-            }
-
-            .side-panel {
-                grid-template-columns: 1fr;
-            }
+            .main-container { grid-template-columns: 1fr; }
+            .map-section { grid-row: auto; min-height: 400px; }
+            .side-panel { max-height: none; }
         }
-
         @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                gap: 12px;
-                text-align: center;
-            }
-
-            .weather-details {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .side-panel {
-                grid-template-columns: 1fr;
-            }
+            .header { flex-direction: column; gap: 12px; text-align: center; }
+            .forecast-days { flex-wrap: wrap; }
         }
     </style>
 </head>
 <body>
     <div class="bg-gradient"></div>
 
-    <!-- Header -->
     <header class="header">
         <div class="logo">
             <div class="logo-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
                     <circle cx="12" cy="12" r="10"/>
-                    <path d="M12 2a14.5 14.5 0 0 0 0 0 14.5 7a10.7 7 1.42 7.1L13 18 7.927 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    <path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
                 </svg>
             </div>
             <div class="logo-text">
@@ -875,30 +305,27 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="main-container">
-        <!-- Map Section -->
         <section class="map-section">
             <div class="map-header">
                 <div class="map-badge active">
                     <i data-lucide="map-pin"></i>
-                    <span>5 Destinos</span>
+                    <span>6 Destinos</span>
                 </div>
                 <div class="map-badge">
                     <i data-lucide="route"></i>
-                    <span>~320 km total</span>
+                    <span>5 Rutas</span>
                 </div>
                 <div class="map-badge">
                     <i data-lucide="mountain"></i>
-                    <span>Palencia - Pirineos</span>
+                    <span>Palencia - Pirineos - Toulouse</span>
                 </div>
             </div>
             <div id="map"></div>
         </section>
 
-        <!-- Side Panel -->
         <aside class="side-panel">
-            <!-- Weather Card -->
+            <!-- Weather Card - Lourdes -->
             <div class="card" id="weather-card">
                 <div class="card-header">
                     <div class="card-title">
@@ -916,7 +343,7 @@
                         <p id="weather-desc">Cargando...</p>
                         <div class="weather-location">
                             <i data-lucide="map-pin"></i>
-                            <span id="weather-location">Zona Pirineos</span>
+                            <span>Lourdes, Francia</span>
                         </div>
                     </div>
                 </div>
@@ -934,57 +361,87 @@
                     <div class="weather-detail">
                         <i data-lucide="thermometer"></i>
                         <span class="value" id="weather-feels">--°</span>
-                        <span class="label">Sensacion</span>
+                        <span class="label">Sensación</span>
+                    </div>
+                </div>
+                <div class="forecast-section">
+                    <div class="forecast-title">Pronóstico 3 días</div>
+                    <div class="forecast-days" id="forecast-days">
+                        <div class="forecast-day"><div class="day-name">--</div><div class="day-icon"><div class="loading-spinner" style="width:20px;height:20px;"></div></div><div class="day-temps">--</div></div>
+                        <div class="forecast-day"><div class="day-name">--</div><div class="day-icon"><div class="loading-spinner" style="width:20px;height:20px;"></div></div><div class="day-temps">--</div></div>
+                        <div class="forecast-day"><div class="day-name">--</div><div class="day-icon"><div class="loading-spinner" style="width:20px;height:20px;"></div></div><div class="day-temps">--</div></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Traffic Card -->
+            <!-- Traffic / Routes Card -->
             <div class="card" id="traffic-card">
                 <div class="card-header">
                     <div class="card-title">
-                        <i data-lucide="traffic-cone"></i>
-                        <span>Trafico</span>
+                        <i data-lucide="navigation"></i>
+                        <span>Rutas</span>
                     </div>
-                    <span class="card-badge">Actualizado</span>
+                    <span class="card-badge">5 trayectos</span>
                 </div>
-                <div class="traffic-status">
-                    <div class="traffic-indicator good" id="traffic-indicator">
-                        <i data-lucide="check" style="width: 28px; height: 28px;"></i>
-                    </div>
-                    <div class="traffic-info">
-                        <h3 id="traffic-status-text">Condiciones Buenas</h3>
-                        <p id="traffic-desc">Sin incidencias reportadas</p>
-                    </div>
-                </div>
-                <div class="traffic-routes">
-                    <div class="route-item" onclick="focusRoute('guardo-biarritz')">
+                <div class="traffic-routes" id="traffic-routes">
+                    <div class="route-item" data-route="guardo-biarritz" onclick="showRouteDetail('guardo-biarritz')">
                         <div class="route-name">
-                            <div class="route-dot" style="background: var(--secondary);"></div>
-                            <span>Guardo - Biarritz</span>
+                            <div class="route-dot" style="background: #10b981;"></div>
+                            <span>Guardo → Biarritz</span>
                         </div>
-                        <span class="route-time">3h 30min</span>
+                        <span class="route-time" id="rt-guardo-biarritz">...</span>
                     </div>
-                    <div class="route-item" onclick="focusRoute('biarritz-pau')">
+                    <div class="route-item" data-route="biarritz-lourdes" onclick="showRouteDetail('biarritz-lourdes')">
                         <div class="route-name">
                             <div class="route-dot" style="background: #3b82f6;"></div>
-                            <span>Biarritz - Pau</span>
+                            <span>Biarritz → Lourdes</span>
                         </div>
-                        <span class="route-time">40 min</span>
+                        <span class="route-time" id="rt-biarritz-lourdes">...</span>
                     </div>
-                    <div class="route-item" onclick="focusRoute('pau-lourdes')">
-                        <div class="route-name">
-                            <div class="route-dot" style="background: var(--accent);"></div>
-                            <span>Pau - Lourdes</span>
-                        </div>
-                        <span class="route-time">35 min</span>
-                    </div>
-                    <div class="route-item" onclick="focusRoute('lourdes-cauterets')">
+                    <div class="route-item" data-route="lourdes-cauterets" onclick="showRouteDetail('lourdes-cauterets')">
                         <div class="route-name">
                             <div class="route-dot" style="background: #8b5cf6;"></div>
-                            <span>Lourdes - Cauterets</span>
+                            <span>Lourdes → Cauterets</span>
                         </div>
-                        <span class="route-time">35 min</span>
+                        <span class="route-time" id="rt-lourdes-cauterets">...</span>
+                    </div>
+                    <div class="route-item" data-route="lourdes-toulouse" onclick="showRouteDetail('lourdes-toulouse')">
+                        <div class="route-name">
+                            <div class="route-dot" style="background: #f59e0b;"></div>
+                            <span>Lourdes → Toulouse</span>
+                        </div>
+                        <span class="route-time" id="rt-lourdes-toulouse">...</span>
+                    </div>
+                    <div class="route-item" data-route="lourdes-pau" onclick="showRouteDetail('lourdes-pau')">
+                        <div class="route-name">
+                            <div class="route-dot" style="background: #ec4899;"></div>
+                            <span>Lourdes → Pau</span>
+                        </div>
+                        <span class="route-time" id="rt-lourdes-pau">...</span>
+                    </div>
+                </div>
+                <div class="route-detail-panel" id="route-detail-panel">
+                    <div class="route-detail-header">
+                        <h4 id="rd-title">--</h4>
+                        <button class="route-detail-close" onclick="closeRouteDetail()">✕</button>
+                    </div>
+                    <div class="route-detail-stats">
+                        <div class="route-stat km">
+                            <span class="stat-value" id="rd-km">--</span>
+                            <span class="stat-label">Kilómetros</span>
+                        </div>
+                        <div class="route-stat time">
+                            <span class="stat-value" id="rd-time">--</span>
+                            <span class="stat-label">Duración</span>
+                        </div>
+                    </div>
+                    <div class="route-weather-mini" id="rd-weather">
+                        <div class="rw-icon" id="rd-weather-icon"><div class="loading-spinner" style="width:20px;height:20px;"></div></div>
+                        <div class="rw-info">
+                            <div class="rw-label">Tiempo en destino</div>
+                            <span class="rw-temp" id="rd-weather-temp">--°</span>
+                            <span class="rw-desc" id="rd-weather-desc">Cargando...</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -999,1410 +456,480 @@
                 </div>
                 <div class="poi-list">
                     <div class="poi-item" onclick="flyToPOI('guardo')">
-                        <div class="poi-marker" style="background: linear-gradient(135deg, #10b981, #34d399));">
-                            <i data-lucide="home"></i>
-                        </div>
-                        <div class="poi-info">
-                            <div class="poi-info">
-                                <h4>Guardo</h4>
-                                <p>Punto de encuentro</p>
-                            </div>
-                            <span class="poi-day">Día 1</span>
-                        </div>
-                        </div>
+                        <div class="poi-marker" style="background: linear-gradient(135deg, #10b981, #34d399);"><i data-lucide="home"></i></div>
+                        <div class="poi-info"><h4>Guardo</h4><p>Punto de encuentro</p></div>
+                        <span class="poi-day">Día 1</span>
                     </div>
                     <div class="poi-item" onclick="flyToPOI('biarritz')">
-                        <div class="poi-marker" style="background: linear-gradient(135deg, #3b82f6, #60a5fa));">
-                            <i data-lucide="waves"></i>
-                        </div>
-                        <div class="poi-info">
-                            <div class="poi-info">
-                                <h4>Biarritz</h4>
-                                <p>Playa y glamour</p>
-                            </div>
-                            <span class="poi-day">Día 2</span>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="poi-item" onclick="flyToPOI('pau')">
-                        <div class="poi-marker" style="background: linear-gradient(135deg, #ec4899, #f472b6));">
-                            <i data-lucide="landmark"></i>
-                        </div>
-                        <div class="poi-info">
-                            <div class="poi-info">
-                                <h4>Pau</h4>
-                                <p>Historia y cultura</p>
-                            </div>
-                            <span class="poi-day">Día 2.5</span>
-                        </div>
-                        </div>
+                        <div class="poi-marker" style="background: linear-gradient(135deg, #3b82f6, #60a5fa);"><i data-lucide="waves"></i></div>
+                        <div class="poi-info"><h4>Biarritz</h4><p>Playa y glamour</p></div>
+                        <span class="poi-day">Día 1</span>
                     </div>
                     <div class="poi-item" onclick="flyToPOI('lourdes')">
-                        <div class="poi-marker" style="background: linear-gradient(135deg, #f59e0b, #fbbf24));">
-                            <i data-lucide="church"></i>
-                        </div>
-                        <div class="poi-info">
-                            <div class="poi-info">
-                                <h4>Lourdes</h4>
-                                <p>Santuario mundial</p>
-                            </div>
-                            <span class="poi-day">Día 3</span>
-                        </div>
-                        </div>
+                        <div class="poi-marker" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);"><i data-lucide="church"></i></div>
+                        <div class="poi-info"><h4>Lourdes</h4><p>Santuario mundial</p></div>
+                        <span class="poi-day">Día 2</span>
                     </div>
                     <div class="poi-item" onclick="flyToPOI('cauterets')">
-                        <div class="poi-marker" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa));">
-                            <i data-lucide="mountain-snow"></i>
-                        </div>
-                        <div class="poi-info">
-                            <div class="poi-info">
-                                <h4>Cauterets</h4>
-                                <p>Estación de esquí</p>
-                            </div>
-                            <span class="poi-day">Día 4</span>
-                        </div>
-                        </div>
+                        <div class="poi-marker" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);"><i data-lucide="mountain-snow"></i></div>
+                        <div class="poi-info"><h4>Cauterets</h4><p>Estación de esquí</p></div>
+                        <span class="poi-day">Día 3</span>
+                    </div>
+                    <div class="poi-item" onclick="flyToPOI('toulouse')">
+                        <div class="poi-marker" style="background: linear-gradient(135deg, #ef4444, #f87171);"><i data-lucide="rocket"></i></div>
+                        <div class="poi-info"><h4>Toulouse</h4><p>Cité de l'Espace</p></div>
+                        <span class="poi-day">Día 3</span>
+                    </div>
+                    <div class="poi-item" onclick="flyToPOI('pau')">
+                        <div class="poi-marker" style="background: linear-gradient(135deg, #ec4899, #f472b6);"><i data-lucide="landmark"></i></div>
+                        <div class="poi-info"><h4>Pau</h4><p>Historia y cultura</p></div>
+                        <span class="poi-day">Día 4</span>
+                    </div>
                 </div>
             </div>
         </aside>
     </main>
 
-    <!-- Leaflet JS -->
+    <!-- Cauterets Detail Modal -->
+    <div class="detail-modal" id="cauterets-modal">
+        <div class="detail-content">
+            <div class="detail-header" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);">
+                <h2>Cauterets - Estación de Esquí</h2>
+                <button class="detail-close" onclick="closeCauteretsModal()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="detail-body">
+                <div class="detail-section">
+                    <h3>🌤️ Tiempo en la Estación</h3>
+                    <div class="detail-weather">
+                        <div class="detail-weather-icon" id="cauterets-weather-icon"><div class="loading-spinner"></div></div>
+                        <div class="detail-weather-info">
+                            <h4 id="cauterets-temp">--°C</h4>
+                            <p id="cauterets-condition">Cargando...</p>
+                        </div>
+                        <div style="margin-left: auto; text-align: right;">
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">Viento: <span id="cauterets-wind">-- km/h</span></p>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">Humedad: <span id="cauterets-humidity">--%</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3>🗺️ Plano de Pistas 2024-25</h3>
+                    <div style="border-radius: var(--radius-sm); overflow: hidden; background: rgba(255,255,255,0.05);">
+                        <a href="https://www.cauterets.com/app/uploads/2024/12/PLAN-PISTES-HIVER-CAUTERETS-24-25-WEB-1.pdf" target="_blank" style="display: block;">
+                            <img src="https://www.cauterets.com/app/uploads/2024/12/PLAN-PISTES-HIVER-CAUTERETS-24-25-WEB-1-2048x1451.jpg" alt="Plano de pistas Cauterets" style="width: 100%; height: auto; display: block;">
+                        </a>
+                        <div style="padding: 16px; text-align: center; background: rgba(0,0,0,0.3); display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                            <a href="https://www.cauterets.com/app/uploads/2024/12/PLAN-PISTES-HIVER-CAUTERETS-24-25-WEB-1.pdf" target="_blank" style="background: var(--secondary); color: white; padding: 12px 20px; border-radius: 10px; text-decoration: none; font-weight: 600;">📄 Ver PDF</a>
+                            <a href="https://www.n-py.com/fr/cauterets/plan-des-pistes" target="_blank" style="background: var(--primary); color: white; padding: 12px 20px; border-radius: 10px; text-decoration: none; font-weight: 600;">🗺️ Mapa Interactivo</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3>✅ Para Principiantes <span class="beginner-badge">⭐ RECOMENDADO</span></h3>
+                    <div class="beginner-tips">
+                        <h4>💡 Consejos para tu primer día</h4>
+                        <ul>
+                            <li>Empieza en las <strong>pistas de Yeti</strong> - son las más suaves</li>
+                            <li>El paquete principiante incluye <strong>teleférico + telesilla + 2 pistas verdes</strong></li>
+                            <li>Alquila el equipo en el pueblo antes de subir - más barato</li>
+                            <li>Llega temprano (9:00) para evitar colas en el teleférico</li>
+                            <li>Reserva clase con monitor si es tu primera vez</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3>💰 Precios Forfait 2025</h3>
+                    <div class="detail-grid">
+                        <div class="detail-card highlight"><h4>PAQUETE PRINCIPIANTE</h4><div class="price">10€ <span>/día</span></div><p>Teleférico + telesilla Clot + 2 pistas verdes</p></div>
+                        <div class="detail-card"><h4>Forfait 1 Día</h4><div class="price">45€ <span>/día</span></div><p>Acceso completo</p></div>
+                        <div class="detail-card"><h4>Forfait 2 Días</h4><div class="price">85€ <span>/2 días</span></div><p>Mejor opción estancias largas</p></div>
+                        <div class="detail-card"><h4>Forfait 4 Días</h4><div class="price">140€ <span>/4 días</span></div><p>+ descuentos restaurantes</p></div>
+                        <div class="detail-card"><h4>Solo Teleférico</h4><div class="price">8€ <span>/ida y vuelta</span></div><p>Billete subida</p></div>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3>🚡 Teleférico Pueblo - Estación</h3>
+                    <ul class="detail-list">
+                        <li><span class="label">Distancia</span><span class="value">5 min desde parking</span></li>
+                        <li><span class="label">Duración trayecto</span><span class="value">~10 minutos</span></li>
+                        <li><span class="label">Horario</span><span class="value">9:00 - 16:30</span></li>
+                    </ul>
+                </div>
+                <div class="detail-section">
+                    <h3>🅿️ Parking Gratuito</h3>
+                    <ul class="detail-list">
+                        <li><span class="label">Ubicación</span><span class="value">Parking du Tartas (gratuito)</span></li>
+                        <li><span class="label">Desde el parking</span><span class="value">~5 min andando</span></li>
+                        <li><span class="label">Horario</span><span class="value">7:00 - 19:00</span></li>
+                    </ul>
+                    <div style="margin-top: 12px;">
+                        <a href="https://maps.app.goo.gl/nL74ftyVBR3QHYa18" target="_blank" class="detail-link">📍 Ver en Google Maps</a>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3>🔗 Enlaces Útiles</h3>
+                    <div class="detail-links">
+                        <a href="https://www.cauterets.com/es/esqui/como-elegir-su-forfait-de-invierno/" target="_blank" class="detail-link">🎿 Web oficial - Forfaits</a>
+                        <a href="tel:+33562925050" class="detail-link" style="background: var(--accent); color: #1e293b;">📞 Oficina Turismo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
     <script>
-        // Initialize Lucide icons
-        try { lucide.createIcons(); } catch(e) { console.warn('Lucide init failed:', e); }
+        try { lucide.createIcons(); } catch(e) { console.warn('Lucide init:', e); }
 
-        // Points of Interest Data
+        // === POI DATA ===
         const poiData = {
             guardo: {
-                name: 'Guardo',
-                coords: [42.7895455, -4.8462880],
-                description: 'Municipio de Palencia en la Montana Palentina, punto de partida hacia los Picos de Europa.',
-                tag: 'Punto de Encuentro',
-                day: 'Día 1',
-                icon: 'home',
-                color: '#10b981'
+                name: 'Guardo', coords: [42.7895455, -4.8462880],
+                description: 'Municipio de Palencia, punto de partida hacia los Pirineos.',
+                tag: 'Punto de Encuentro', icon: 'home', color: '#10b981'
             },
             biarritz: {
-                name: 'Biarritz',
-                coords: [43.4832, -1.5586],
+                name: 'Biarritz', coords: [43.4832, -1.5586],
                 description: 'Elegante ciudad costera conocida por sus playas, surf y casino.',
-                tag: 'Playa y Lujo',
-                day: 'Día 2',
-                icon: 'waves',
-                color: '#3b82f6'
-            },
-            pau: {
-                name: 'Pau',
-                coords: [43.2957547, -0.3685668],
-                description: 'Ciudad histórica con castillo real de los Reyes de Francia, famoso por su boulevard de los Pirineos.',
-                tag: 'Historia y Cultura',
-                day: 'Día 2.5',
-                icon: 'landmark',
-                color: '#ec4899'
+                tag: 'Playa y Lujo', icon: 'waves', color: '#3b82f6'
             },
             lourdes: {
-                name: 'Lourdes',
-                coords: [43.0964, -0.0458],
-                description: 'Importante lugar de peregrinacion catolica mundial. Conocido por la Gruta de Massabielle en 1858.',
-                tag: 'Espiritualidad',
-                day: 'Día 3',
-                icon: 'church',
-                color: '#f59e0b'
+                name: 'Lourdes', coords: [43.0964, -0.0458],
+                description: 'Importante lugar de peregrinación católica mundial. Gruta de Massabielle.',
+                tag: 'Espiritualidad', icon: 'church', color: '#f59e0b'
             },
             cauterets: {
-                name: 'Cauterets',
-                coords: [42.8869, -0.1431],
-                description: 'Estación termal y de esquí en el corazón del Parque Nacional de los Pirineos. Estación base: Gare du Lys (1850m). Picos: Soum de Grum (2657m), Soum du Mauloc (2074m).',
-                tag: 'Naturaleza y Deporte',
-                day: 'Día 4',
-                icon: 'mountain-snow',
-                color: '#8b5cf6',
-                pistas: {
-                    verde: 'Pistas fáciles para principiantes',
-                    azul: 'Pistas de dificultad media',
-                    roja: 'Pistas difíciles (Grand Barbat, Baumes, Crêtes)',
-                    negra: 'Pistas muy difíciles'
-                },
-                zonas: ['Snowpark', 'Zona luge (tobogán)', 'Zona débutant', 'Boardercross - Yeti Line', 'Zone Hamac', 'Fun Line'],
-                servicios: ['Restaurantes', 'Bares', 'Guardería du Lys', 'Primeros auxilios', 'Taquilla'],
-                remontes: ['Telecabinas', 'Telesillas desmontables', 'Telesillas fijos', 'Teleesquís', 'Cintas transportadoras']
+                name: 'Cauterets', coords: [42.8869, -0.1431],
+                description: 'Estación termal y de esquí en el Parque Nacional de los Pirineos.',
+                tag: 'Naturaleza y Deporte', icon: 'mountain-snow', color: '#8b5cf6',
+                pistas: { verde: 'Pistas fáciles', azul: 'Dificultad media', roja: 'Difíciles (Grand Barbat, Crêtes)', negra: 'Muy difíciles' },
+                zonas: ['Snowpark', 'Zona luge', 'Zona débutant', 'Boardercross', 'Fun Line'],
+                servicios: ['Restaurantes', 'Bares', 'Guardería', 'Primeros auxilios', 'Taquilla'],
+                remontes: ['Telecabinas', 'Telesillas', 'Teleesquís', 'Cintas transportadoras']
+            },
+            toulouse: {
+                name: 'Toulouse', coords: [43.5867, 1.4911],
+                description: 'Cité de l\'Espace: parque temático del espacio con réplicas de cohetes y estaciones espaciales.',
+                tag: 'Ciudad del Espacio', icon: 'rocket', color: '#ef4444'
+            },
+            pau: {
+                name: 'Pau', coords: [43.2957547, -0.3685668],
+                description: 'Ciudad histórica con castillo real, famosa por su boulevard de los Pirineos.',
+                tag: 'Historia y Cultura', icon: 'landmark', color: '#ec4899'
             }
         };
 
-        // Initialize Map
-        const map = L.map('map', {
-            center: [43.0, -2.0],
-            zoom: 7,
-            zoomControl: false
-        });
+        // === ROUTE DEFINITIONS ===
+        const routeDefs = {
+            'guardo-biarritz':   { from: 'guardo',  to: 'biarritz',  color: '#10b981', label: 'Guardo → Biarritz' },
+            'biarritz-lourdes':  { from: 'biarritz', to: 'lourdes',  color: '#3b82f6', label: 'Biarritz → Lourdes' },
+            'lourdes-cauterets': { from: 'lourdes',  to: 'cauterets', color: '#8b5cf6', label: 'Lourdes → Cauterets' },
+            'lourdes-toulouse':  { from: 'lourdes',  to: 'toulouse',  color: '#f59e0b', label: 'Lourdes → Toulouse (Cité de l\'Espace)' },
+            'lourdes-pau':       { from: 'lourdes',  to: 'pau',       color: '#ec4899', label: 'Lourdes → Pau' }
+        };
 
-        // Add zoom control to bottom right
+        const routeCache = {};
+
+        // === MAP INIT ===
+        const map = L.map('map', { center: [43.0, -1.0], zoom: 7, zoomControl: false });
         L.control.zoom({ position: 'bottomright' }).addTo(map);
-
-        // Dark map tiles (CartoDB Dark Matter)
         L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-            subdomains: 'abcd',
-            maxZoom: 19
+            attribution: '&copy; OpenStreetMap &copy; CARTO', subdomains: 'abcd', maxZoom: 19
         }).addTo(map);
 
-        // Custom marker icon function
-        function createCustomIcon(color, icon) {
-            return L.divIcon({
-                className: 'custom-div-icon',
-                html: `
-                    <div class="custom-marker" style="background: linear-gradient(135deg, ${color}, ${color}dd);">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                            ${getIconPath(icon)}
-                        </svg>
-                    </div>
-                `,
-                iconSize: [36, 36],
-                iconAnchor: [18, 36],
-                popupAnchor: [0, -36]
-            });
-        }
-
+        // === ICON HELPERS ===
         function getIconPath(icon) {
             const icons = {
                 'home': '<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
                 'waves': '<path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>',
                 'landmark': '<line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/>',
                 'church': '<path d="m18 7 4 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9l4-2"/><path d="M14 22v-4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v4"/><path d="M18 22V5l-6-3-6 3v17"/><path d="M12 7v5"/><path d="M10 9h4"/>',
-                'mountain-snow': '<path d="m8 3 4 8 5-5 5 15H2L8 3z"/><path d="M4.14 15.08c2.62-1.57 5.24-1.43 7.86.42 2.74 1.94 5.49 2 8.23.19"/>'
+                'mountain-snow': '<path d="m8 3 4 8 5-5 5 15H2L8 3z"/><path d="M4.14 15.08c2.62-1.57 5.24-1.43 7.86.42 2.74 1.94 5.49 2 8.23.19"/>',
+                'rocket': '<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>'
             };
             return icons[icon] || '';
         }
 
-        // Add markers for each POI
+        function createCustomIcon(color, icon) {
+            return L.divIcon({
+                className: 'custom-div-icon',
+                html: '<div class="custom-marker" style="background: linear-gradient(135deg, ' + color + ', ' + color + 'dd);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">' + getIconPath(icon) + '</svg></div>',
+                iconSize: [36, 36], iconAnchor: [18, 36], popupAnchor: [0, -36]
+            });
+        }
+
+        // === ADD MARKERS ===
         const markers = {};
-        Object.entries(poiData).forEach(([key, poi]) => {
-            const marker = L.marker(poi.coords, {
-                icon: createCustomIcon(poi.color, poi.icon)
-            }).addTo(map);
-
-            marker.bindPopup(`
-                <div class="popup-content">
-                    <h3>
-                        <span style="color: ${poi.color};">●</span>
-                        ${poi.name}
-                    </h3>
-                    <p>${poi.description}</p>
-                    <span class="popup-tag">${poi.tag}</span>
-                    ${poi.pistas ? `
-                    <div class="popup-details">
-                        <h4>Pistas</h4>
-                        <div class="pistas-grid">
-                            <span class="pista verde">🟢 ${poi.pistas.verde}</span>
-                            <span class="pista azul">🔵 ${poi.pistas.azul}</span>
-                            <span class="pista roja">🔴 ${poi.pistas.roja}</span>
-                            <span class="pista negra">⚫ ${poi.pistas.negra}</span>
-                        </div>
-                    </div>
-                    ` : ''}
-                    ${poi.zonas ? `
-                    <div class="popup-details">
-                        <h4>Zonas Especiales</h4>
-                        <div class="zonas-list">${poi.zonas.map(z => `<span class="zona-tag">${z}</span>`).join('')}</div>
-                    </div>
-                    ` : ''}
-                    ${poi.servicios ? `
-                    <div class="popup-details">
-                        <h4>Servicios</h4>
-                        <p class="servicios-text">${poi.servicios.join(' • ')}</p>
-                    </div>
-                    ` : ''}
-                    ${poi.remontes ? `
-                    <div class="popup-details">
-                        <h4>Remontes</h4>
-                        <p class="remontes-text">${poi.remontes.join(' • ')}</p>
-                    </div>
-                    ` : ''}
-                </div>
-            `);
-
+        Object.entries(poiData).forEach(function([key, poi]) {
+            var marker = L.marker(poi.coords, { icon: createCustomIcon(poi.color, poi.icon) }).addTo(map);
+            var popupHtml = '<div><h3><span style="color:' + poi.color + '">●</span> ' + poi.name + '</h3><p>' + poi.description + '</p><span class="popup-tag">' + poi.tag + '</span>';
+            if (poi.pistas) {
+                popupHtml += '<div class="popup-details"><h4>Pistas</h4><div class="pistas-grid"><span class="pista">🟢 ' + poi.pistas.verde + '</span><span class="pista">🔵 ' + poi.pistas.azul + '</span><span class="pista">🔴 ' + poi.pistas.roja + '</span><span class="pista">⚫ ' + poi.pistas.negra + '</span></div></div>';
+            }
+            if (poi.zonas) {
+                popupHtml += '<div class="popup-details"><h4>Zonas</h4><div class="zonas-list">' + poi.zonas.map(function(z) { return '<span class="zona-tag">' + z + '</span>'; }).join('') + '</div></div>';
+            }
+            popupHtml += '</div>';
+            marker.bindPopup(popupHtml);
             markers[key] = marker;
         });
 
-        // Store route polylines
-        let routePolylines = [];
-        let allRouteCoords = [];
+        // === ROUTE DRAWING ===
+        var routePolylines = {};
+        var highlightedRoute = null;
+        var allRouteCoords = [];
 
-        // Fetch real road routes using OSRM API
         async function fetchRoadRoute(from, to) {
-            const response = await fetch(
-                `https://router.project-osrm.org/route/v1/driving/${from[1]},${from[0]};${to[1]},${to[0]}?overview=full&geometries=geojson`
-            );
-            const data = await response.json();
+            var url = 'https://router.project-osrm.org/route/v1/driving/' + from[1] + ',' + from[0] + ';' + to[1] + ',' + to[0] + '?overview=full&geometries=geojson';
+            var response = await fetch(url);
+            var data = await response.json();
             if (data.routes && data.routes[0]) {
-                return data.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
+                var route = data.routes[0];
+                return {
+                    coords: route.geometry.coordinates.map(function(c) { return [c[1], c[0]]; }),
+                    distance: route.distance,
+                    duration: route.duration
+                };
             }
-            return [from, to];
+            return { coords: [from, to], distance: 0, duration: 0 };
         }
 
-        // Draw all road routes
-        async function drawAllRoutes() {
-            const routePairs = [
-                { from: poiData.guardo.coords, to: poiData.biarritz.coords, color: '#10b981' },
-                { from: poiData.biarritz.coords, to: poiData.pau.coords, color: '#3b82f6' },
-                { from: poiData.pau.coords, to: poiData.lourdes.coords, color: '#f59e0b' },
-                { from: poiData.lourdes.coords, to: poiData.cauterets.coords, color: '#8b5cf6' }
-            ];
+        function formatDuration(seconds) {
+            var h = Math.floor(seconds / 3600);
+            var m = Math.round((seconds % 3600) / 60);
+            if (h === 0) return m + ' min';
+            return h + 'h ' + m + 'min';
+        }
 
-            for (const pair of routePairs) {
+        async function drawAllRoutes() {
+            var keys = Object.keys(routeDefs);
+            for (var i = 0; i < keys.length; i++) {
+                var key = keys[i];
+                var def = routeDefs[key];
                 try {
-                    const routeCoords = await fetchRoadRoute(pair.from, pair.to);
-                    const polyline = L.polyline(routeCoords, {
-                        color: pair.color,
-                        weight: 5,
-                        opacity: 0.9,
-                        smoothFactor: 1
+                    var fromCoords = poiData[def.from].coords;
+                    var toCoords = poiData[def.to].coords;
+                    var result = await fetchRoadRoute(fromCoords, toCoords);
+
+                    routeCache[key] = {
+                        coords: result.coords,
+                        distance: result.distance,
+                        duration: result.duration,
+                        destCoords: toCoords,
+                        destName: poiData[def.to].name
+                    };
+
+                    var polyline = L.polyline(result.coords, {
+                        color: def.color, weight: 4, opacity: 0.7, smoothFactor: 1
                     }).addTo(map);
-                    routePolylines.push(polyline);
-                    allRouteCoords.push(...routeCoords);
-                } catch (error) {
-                    console.error('Error fetching route:', error);
+                    routePolylines[key] = polyline;
+                    allRouteCoords = allRouteCoords.concat(result.coords);
+
+                    var timeEl = document.getElementById('rt-' + key);
+                    if (timeEl) {
+                        var km = (result.distance / 1000).toFixed(0);
+                        timeEl.textContent = km + ' km · ' + formatDuration(result.duration);
+                    }
+                } catch (err) {
+                    console.warn('Route ' + key + ' error:', err);
                 }
             }
-
-            // Fit map to show all routes
             if (allRouteCoords.length > 0) {
                 map.fitBounds(L.latLngBounds(allRouteCoords), { padding: [50, 50] });
             }
         }
 
-        // Fly to POI function
+        // === ROUTE DETAIL (on click) ===
+        var activeRouteKey = null;
+
+        async function showRouteDetail(routeKey) {
+            if (activeRouteKey === routeKey) { closeRouteDetail(); return; }
+            activeRouteKey = routeKey;
+
+            var def = routeDefs[routeKey];
+            var panel = document.getElementById('route-detail-panel');
+            var cached = routeCache[routeKey];
+
+            // Highlight route item
+            document.querySelectorAll('.route-item').forEach(function(el) { el.classList.remove('active'); });
+            document.querySelector('[data-route="' + routeKey + '"]').classList.add('active');
+
+            // Highlight polyline
+            Object.keys(routePolylines).forEach(function(k) {
+                routePolylines[k].setStyle({ weight: k === routeKey ? 7 : 3, opacity: k === routeKey ? 1 : 0.4 });
+            });
+
+            // Zoom to route
+            if (cached) {
+                map.fitBounds(L.latLngBounds(cached.coords), { padding: [80, 80] });
+            }
+
+            // Show panel
+            panel.classList.add('visible');
+            document.getElementById('rd-title').textContent = def.label;
+
+            if (cached) {
+                document.getElementById('rd-km').textContent = (cached.distance / 1000).toFixed(1) + ' km';
+                document.getElementById('rd-time').textContent = formatDuration(cached.duration);
+            } else {
+                document.getElementById('rd-km').textContent = '...';
+                document.getElementById('rd-time').textContent = '...';
+            }
+
+            // Fetch weather at destination
+            document.getElementById('rd-weather-temp').textContent = '--°';
+            document.getElementById('rd-weather-desc').textContent = 'Cargando...';
+            document.getElementById('rd-weather-icon').innerHTML = '<div class="loading-spinner" style="width:20px;height:20px;"></div>';
+
+            var destCoords = poiData[def.to].coords;
+            try {
+                var resp = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + destCoords[0] + '&longitude=' + destCoords[1] + '&current=temperature_2m,weather_code&timezone=Europe/Paris');
+                var data = await resp.json();
+                if (data.current) {
+                    document.getElementById('rd-weather-temp').textContent = Math.round(data.current.temperature_2m) + '°C';
+                    document.getElementById('rd-weather-desc').textContent = getWeatherDescription(data.current.weather_code);
+                    document.getElementById('rd-weather-icon').innerHTML = getWeatherIcon(data.current.weather_code, 32);
+                }
+            } catch (e) {
+                document.getElementById('rd-weather-desc').textContent = 'No disponible';
+            }
+        }
+
+        function closeRouteDetail() {
+            activeRouteKey = null;
+            document.getElementById('route-detail-panel').classList.remove('visible');
+            document.querySelectorAll('.route-item').forEach(function(el) { el.classList.remove('active'); });
+            Object.keys(routePolylines).forEach(function(k) {
+                routePolylines[k].setStyle({ weight: 4, opacity: 0.7 });
+            });
+        }
+
+        // === FLY TO POI ===
         function flyToPOI(poiKey) {
-            const poi = poiData[poiKey];
+            if (poiKey === 'cauterets') openCauteretsModal();
+            var poi = poiData[poiKey];
             map.flyTo(poi.coords, 12, { duration: 1.5 });
             markers[poiKey].openPopup();
         }
 
-        // Focus route function
-        async function focusRoute(routeKey) {
-            const routes = {
-                'guardo-biarritz': { from: poiData.guardo.coords, to: poiData.biarritz.coords },
-                'biarritz-pau': { from: poiData.biarritz.coords, to: poiData.pau.coords },
-                'pau-lourdes': { from: poiData.pau.coords, to: poiData.lourdes.coords },
-                'lourdes-cauterets': { from: poiData.lourdes.coords, to: poiData.cauterets.coords }
-            };
-
-            const route = routes[routeKey];
-            if (route) {
-                const routeCoords = await fetchRoadRoute(route.from, route.to);
-                map.fitBounds(L.latLngBounds(routeCoords), { padding: [100, 100] });
-            }
-        }
-
-        // Weather API (using Open-Meteo - free, no API key needed)
+        // === WEATHER (Lourdes) ===
         async function fetchWeather() {
             try {
-                // Biarritz coordinates as central point
-                const lat = 43.4832;
-                const lon = -1.5586;
-
-                const response = await fetch(
-                    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&timezone=Europe/Paris`
+                var lat = 43.0964;
+                var lon = -0.0458;
+                var response = await fetch(
+                    'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,weather_code&forecast_days=4&timezone=Europe/Paris'
                 );
-                const data = await response.json();
+                var data = await response.json();
 
                 if (data.current) {
-                    const current = data.current;
+                    var c = data.current;
+                    document.getElementById('weather-temp').textContent = Math.round(c.temperature_2m) + '°';
+                    document.getElementById('weather-desc').textContent = getWeatherDescription(c.weather_code);
+                    document.getElementById('weather-humidity').textContent = c.relative_humidity_2m + '%';
+                    document.getElementById('weather-wind').textContent = Math.round(c.wind_speed_10m) + ' km/h';
+                    document.getElementById('weather-feels').textContent = Math.round(c.apparent_temperature) + '°';
+                    document.getElementById('weather-icon').innerHTML = getWeatherIcon(c.weather_code, 48);
+                }
 
-                    // Update temperature
-                    document.getElementById('weather-temp').textContent = `${Math.round(current.temperature_2m)}°`;
-                    document.getElementById('weather-desc').textContent = getWeatherDescription(current.weather_code);
-                    document.getElementById('weather-humidity').textContent = `${current.relative_humidity_2m}%`;
-                    document.getElementById('weather-wind').textContent = `${Math.round(current.wind_speed_10m)} km/h`;
-                    document.getElementById('weather-feels').textContent = `${Math.round(current.apparent_temperature)}°`;
-
-                    // Update weather icon
-                    const iconHtml = getWeatherIcon(current.weather_code);
-                    document.getElementById('weather-icon').innerHTML = iconHtml;
+                if (data.daily) {
+                    var days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+                    var forecastHtml = '';
+                    for (var i = 1; i <= 3; i++) {
+                        if (i < data.daily.time.length) {
+                            var date = new Date(data.daily.time[i] + 'T00:00:00');
+                            var dayName = days[date.getDay()];
+                            var max = Math.round(data.daily.temperature_2m_max[i]);
+                            var min = Math.round(data.daily.temperature_2m_min[i]);
+                            var icon = getWeatherIcon(data.daily.weather_code[i], 28);
+                            forecastHtml += '<div class="forecast-day"><div class="day-name">' + dayName + ' ' + date.getDate() + '</div><div class="day-icon">' + icon + '</div><div class="day-temps"><span class="day-max">' + max + '°</span> <span class="day-min">' + min + '°</span></div></div>';
+                        }
+                    }
+                    document.getElementById('forecast-days').innerHTML = forecastHtml;
                 }
             } catch (error) {
-                console.error('Error fetching weather:', error);
+                console.error('Weather error:', error);
                 document.getElementById('weather-desc').textContent = 'Error al cargar';
             }
         }
 
+        // === WEATHER HELPERS ===
         function getWeatherDescription(code) {
-            const descriptions = {
-                0: 'Despejado',
-                1: 'Mayormente despejado',
-                2: 'Parcialmente nublado',
-                3: 'Nublado',
-                45: 'Neblina',
-                48: 'Neblina con escarcha',
-                51: 'Llovizna ligera',
-                53: 'Llovizna moderada',
-                55: 'Llovizna intensa',
-                56: 'Llovizna helada ligera',
-                57: 'Llovizna helada intensa',
-                61: 'Lluvia ligera',
-                63: 'Lluvia moderada',
-                65: 'Lluvia intensa',
-                66: 'Lluvia helada ligera',
-                67: 'Lluvia helada intensa',
-                71: 'Nevada ligera',
-                73: 'Nevada moderada',
-                75: 'Nevada intensa',
-                77: 'Granizo fino',
-                80: 'Chubascos ligeros',
-                81: 'Chubascos moderados',
-                82: 'Chubascos intensos',
-                85: 'Chubascos de nieve ligeros',
-                86: 'Chubascos de nieve intensos',
-                95: 'Tormenta eléctrica',
-                96: 'Tormenta con granizo ligero',
-                99: 'Tormenta con granizo intenso'
+            var d = {
+                0:'Despejado', 1:'Mayormente despejado', 2:'Parcialmente nublado', 3:'Nublado',
+                45:'Neblina', 48:'Neblina con escarcha',
+                51:'Llovizna ligera', 53:'Llovizna moderada', 55:'Llovizna intensa',
+                56:'Llovizna helada', 57:'Llovizna helada intensa',
+                61:'Lluvia ligera', 63:'Lluvia moderada', 65:'Lluvia intensa',
+                66:'Lluvia helada', 67:'Lluvia helada intensa',
+                71:'Nevada ligera', 73:'Nevada moderada', 75:'Nevada intensa', 77:'Granizo fino',
+                80:'Chubascos ligeros', 81:'Chubascos moderados', 82:'Chubascos intensos',
+                85:'Nieve ligera', 86:'Nieve intensa',
+                95:'Tormenta', 96:'Tormenta con granizo', 99:'Tormenta con granizo intenso'
             };
-            return descriptions[code] || 'Variable';
+            return d[code] || 'Variable';
         }
 
-        function getWeatherIcon(code) {
-            let icon = 'sun';
-            if (code === 0) icon = 'sun';
-            else if (code <= 2) icon = 'cloud-sun';
-            else if (code === 3) icon = 'cloud';
-            else if (code <= 48) icon = 'cloud-fog';
-            else if (code <= 57) icon = 'cloud-drizzle';
-            else if (code <= 67) icon = 'cloud-rain';
-            else if (code <= 77) icon = 'cloud-snow';
-            else if (code <= 82) icon = 'cloud-rain';
-            else if (code <= 86) icon = 'cloud-snow';
-            else if (code >= 95) icon = 'cloud-lightning';
+        function getWeatherIcon(code, size) {
+            size = size || 48;
+            var type = 'sun';
+            if (code === 0) type = 'sun';
+            else if (code <= 2) type = 'cloud-sun';
+            else if (code === 3) type = 'cloud';
+            else if (code <= 48) type = 'cloud-fog';
+            else if (code <= 57) type = 'cloud-drizzle';
+            else if (code <= 67) type = 'cloud-rain';
+            else if (code <= 77) type = 'cloud-snow';
+            else if (code <= 82) type = 'cloud-rain';
+            else if (code <= 86) type = 'cloud-snow';
+            else if (code >= 95) type = 'cloud-lightning';
 
-            const svgs = {
-                'sun': `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="4"/>
-                    <path d="M12 2v2"/><path d="M12 20v2"/>
-                    <path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/>
-                    <path d="M2 12h2"/><path d="M20 12h2"/>
-                    <path d="M6.34 17.66l-1.41 1.41"/><path d="M19.07 4.93l-1.41 1.41"/>
-                </svg>`,
-                'cloud-sun': `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2v2"/>
-                    <path d="M4.93 4.93l1.41 1.41"/>
-                    <path d="M20 12h2"/>
-                    <path d="M19.07 4.93l-1.41 1.41"/>
-                    <path d="M15.947 12.65a4 4 0 0 0-5.925-4.128"/>
-                    <path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"/>
-                </svg>`,
-                'cloud': `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
-                </svg>`,
-                'cloud-fog': `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/>
-                    <path d="M16 17H7"/><path d="M17 21H9"/>
-                </svg>`,
-                'cloud-drizzle': `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/>
-                    <path d="M8 19v1"/><path d="M8 14v1"/>
-                    <path d="M16 19v1"/><path d="M16 14v1"/>
-                    <path d="M12 21v1"/><path d="M12 16v1"/>
-                </svg>`,
-                'cloud-rain': `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/>
-                    <path d="M16 14v6"/><path d="M8 14v6"/><path d="M12 16v6"/>
-                </svg>`,
-                'cloud-snow': `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/>
-                    <path d="M8 15h.01"/><path d="M8 19h.01"/>
-                    <path d="M12 17h.01"/><path d="M12 21h.01"/>
-                    <path d="M16 15h.01"/><path d="M16 19h.01"/>
-                </svg>`,
-                'cloud-lightning': `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M6 16.326A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 .5 8.973"/>
-                    <path d="m13 12-3 5h4l-3 5"/>
-                </svg>`
+            var svgs = {
+                'sun': '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M6.34 17.66l-1.41 1.41"/><path d="M19.07 4.93l-1.41 1.41"/></svg>',
+                'cloud-sun': '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"><path d="M12 2v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M20 12h2"/><path d="M19.07 4.93l-1.41 1.41"/><path d="M15.947 12.65a4 4 0 0 0-5.925-4.128"/><path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"/></svg>',
+                'cloud': '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>',
+                'cloud-fog': '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M16 17H7"/><path d="M17 21H9"/></svg>',
+                'cloud-drizzle': '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M8 19v1"/><path d="M8 14v1"/><path d="M16 19v1"/><path d="M16 14v1"/><path d="M12 21v1"/><path d="M12 16v1"/></svg>',
+                'cloud-rain': '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M16 14v6"/><path d="M8 14v6"/><path d="M12 16v6"/></svg>',
+                'cloud-snow': '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="#e2e8f0" stroke-width="2" stroke-linecap="round"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M8 15h.01"/><path d="M8 19h.01"/><path d="M12 17h.01"/><path d="M12 21h.01"/><path d="M16 15h.01"/><path d="M16 19h.01"/></svg>',
+                'cloud-lightning': '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"><path d="M6 16.326A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 .5 8.973"/><path d="m13 12-3 5h4l-3 5"/></svg>'
             };
-            return svgs[icon] || svgs['sun'];
+            return svgs[type] || svgs['sun'];
         }
 
-        // Traffic simulation (in real app, use TomTom or Google Traffic API)
-        function updateTraffic() {
-            // Simulated traffic data - in production would use real API
-            const now = new Date();
-            const hour = now.getHours();
-
-            let status = 'good';
-            let statusText = 'Condiciones Buenas';
-            let description = 'Sin incidencias reportadas';
-
-            // Simulate rush hours
-            if ((hour >= 7 && hour <= 9) || (hour >= 17 && hour <= 19)) {
-                status = 'moderate';
-                statusText = 'Trafico Moderado';
-                description = 'Posibles retrasos en hora punta';
-            }
-
-            const indicator = document.getElementById('traffic-indicator');
-            indicator.className = `traffic-indicator ${status}`;
-
-            if (status === 'good') {
-                indicator.innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 4"/></svg>';
-            } else if (status === 'moderate') {
-                indicator.innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 29v-4a2 2 0 0 0 0 11-12.88-4.43a2 4 0 0 7.07-7.07l-1.73 2.27-2 2.74V12"/><path d="M12 12v-6"/></svg>';
-            } else {
-                indicator.innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6c0 2 0 0 1.26 1.6 1.67-.48-.4.39.4.4.61.06-.4.43a2 4 0 0 1.66-.73-.18-.4.39-.4.61-.06-.24-.48-.24"/><path d="M19 16.64 2.62a18 6 1.87 1.77a2 2 2.5.18-.5a1.88-.83-.82-2.82V12"/><circle cx="11.8" cy="5.82" r="1.5"/></svg>';
-            }
-
-            document.getElementById('traffic-status-text').textContent = statusText;
-            document.getElementById('traffic-desc').textContent = description;
-        }
-
-        // Cauterets Detail Modal
+        // === CAUTERETS MODAL ===
         function openCauteretsModal() {
             document.getElementById('cauterets-modal').classList.add('active');
             document.body.style.overflow = 'hidden';
             fetchCauteretsWeather();
         }
-
         function closeCauteretsModal() {
             document.getElementById('cauterets-modal').classList.remove('active');
             document.body.style.overflow = '';
         }
+        document.addEventListener('click', function(e) { if (e.target.classList.contains('detail-modal')) closeCauteretsModal(); });
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeCauteretsModal(); });
 
-        // Close modal on background click
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('detail-modal')) {
-                closeCauteretsModal();
-            }
-        });
-
-        // Close modal on Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeCauteretsModal();
-            }
-        });
-
-        // Override flyToPOI to open modal for Cauterets
-        const originalFlyToPOI = flyToPOI;
-        flyToPOI = function(poiKey) {
-            if (poiKey === 'cauterets') {
-                openCauteretsModal();
-            }
-            const poi = poiData[poiKey];
-            map.flyTo(poi.coords, 12, { duration: 1.5 });
-            markers[poiKey].openPopup();
-        };
-
-        // Fetch weather for Cauterets
         async function fetchCauteretsWeather() {
             try {
-                const lat = 42.8869;
-                const lon = -0.1431;
-                const response = await fetch(
-                    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&daily=snowfall_height&timezone=Europe/Paris`
-                );
-                const data = await response.json();
-
+                var resp = await fetch('https://api.open-meteo.com/v1/forecast?latitude=42.8869&longitude=-0.1431&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=Europe/Paris');
+                var data = await resp.json();
                 if (data.current) {
-                    document.getElementById('cauterets-temp').textContent = `${Math.round(data.current.temperature_2m)}°C`;
+                    document.getElementById('cauterets-temp').textContent = Math.round(data.current.temperature_2m) + '°C';
                     document.getElementById('cauterets-condition').textContent = getWeatherDescription(data.current.weather_code);
-                    document.getElementById('cauterets-wind').textContent = `${Math.round(data.current.wind_speed_10m)} km/h`;
-                    document.getElementById('cauterets-humidity').textContent = `${data.current.relative_humidity_2m}%`;
-
-                    const iconHtml = getWeatherIcon(data.current.weather_code);
-                    document.getElementById('cauterets-weather-icon').innerHTML = iconHtml;
+                    document.getElementById('cauterets-wind').textContent = Math.round(data.current.wind_speed_10m) + ' km/h';
+                    document.getElementById('cauterets-humidity').textContent = data.current.relative_humidity_2m + '%';
+                    document.getElementById('cauterets-weather-icon').innerHTML = getWeatherIcon(data.current.weather_code, 40);
                 }
-            } catch (error) {
-                console.error('Error fetching Cauterets weather:', error);
-            }
+            } catch (e) { console.error('Cauterets weather:', e); }
         }
 
-        // Initialize on page load - each block independent
-        // Weather loads immediately, no dependency on routes
+        // === INIT ===
         fetchWeather();
         setInterval(fetchWeather, 300000);
-
-        // Routes load separately
-        drawAllRoutes().catch(err => console.warn('Routes error:', err));
-
-        // Also update traffic
-        try { updateTraffic(); } catch(e) { console.warn('Traffic init error:', e); }
+        drawAllRoutes().catch(function(err) { console.warn('Routes error:', err); });
     </script>
-
-    <!-- Cauterets Detail Modal -->
-    <div class="detail-modal" id="cauterets-modal">
-        <div class="detail-content">
-            <div class="detail-header" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);">
-                <h2>
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="m8 3 4 8 5 9 3 9 3"/>
-                        <path d="M17 21v-2a4 4 0 0 0 2 2h12a2 2 0 0 2 2V8z"/>
-                    </svg>
-                    Cauterets - Estacion de Esqui
-                </h2>
-                <button class="detail-close" onclick="closeCauteretsModal()">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y2="6" x2="8" y2="6"/>
-                        <line x1="18" y1="17" x2="8" y2="17"/>
-                    </svg>
-                </button>
-            </div>
-
-            <div class="detail-body">
-
-                <!-- Weather Section -->
-                <div class="detail-section">
-                    <h3>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M14 2H6a2 2 0 0 0 11 11.13a3 3"/>
-                            <path d="M13 2v6"/>
-                            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                        Tiempo en la Estacion
-                    </h3>
-                    <div class="detail-weather">
-                        <div class="detail-weather-icon" id="cauterets-weather-icon">
-                            <div class="loading-spinner"></div>
-                        </div>
-                        <div class="detail-weather-info">
-                            <h4 id="cauterets-temp">--°C</h4>
-                            <p id="cauterets-condition">Cargando...</p>
-                            <div style="margin-left: auto; text-align: right;">
-                                <p style="font-size: 0.85rem; color: var(--text-muted);">Viento: <span id="cauterets-wind">-- km/h</span></p>
-                                <p style="font-size: 0.85rem; color: var(--text-muted);">Humedad: <span id="cauterets-humidity">--%</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Plano de Pistas PDF -->
-                <div class="detail-section">
-                    <h3>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 2 2v16a2 2 0 0 2 2h12a2 2 0 0 2 2V8z"/>
-                            <polyline points="14 2 14 8 20 8"/>
-                            <line x1="16" y1="13" x2="8" y2="13"/>
-                            <line x1="16" y1="17" x2="8" y2="17"/>
-                            <line x1="10" y1="9" x2="8" y2="9"/>
-                        </svg>
-                        Plano de Pistas Cauterets 2024-25
-                    </h3>
-                    <div style="border-radius: var(--radius-sm); overflow: hidden; background: rgba(255,255,255,0.05);">
-                        <a href="https://www.cauterets.com/app/uploads/2024/12/PLAN-PISTES-HIVER-CAUTERETS-24-25-WEB-1.pdf" target="_blank" style="display: block;">
-                            <img src="https://www.cauterets.com/app/uploads/2024/12/PLAN-PISTES-HIVER-CAUTERETS-24-25-WEB-1-2048x1451.jpg"
-                                 alt="Plano de pistas Cauterets 2024-25"
-                                 style="width: 100%; height: auto; display: block;">
-                        </a>
-                        <div style="padding: 16px; text-align: center; background: rgba(0,0,0,0.3);">
-                            <a href="https://www.cauterets.com/app/uploads/2024/12/PLAN-PISTES-HIVER-CAUTERETS-24-25-WEB-1.pdf" target="_blank"
-                               style="background: var(--secondary); color: white; padding: 14px 24px; border-radius: 10px; font-size: 1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; font-weight: 600;">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M14 2H6a2 2 0 0 2 2v16a2 2 0 0 2 2h12a2 2 0 0 2 2V8z"/>
-                                    <polyline points="14 2 14 8 20 8"/>
-                                    <line x1="16" y1="13" x2="8" y2="13"/>
-                                    <line x1="16" y1="17" x2="8" y2="17"/>
-                                </svg>
-                                Ver PDF Completo
-                            </a>
-                            <a href="https://www.n-py.com/fr/cauterets/plan-des-pistes" target="_blank"
-                               style="background: var(--primary); color: white; padding: 14px 24px; border-radius: 10px; font-size: 1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; font-weight: 600;">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <polygon points="10 8 16 12 10 16 10 8"/>
-                                </svg>
-                                Mapa Interactivo
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Beginner Section -->
-                <div class="detail-section">
-                    <h3>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="m9 12 2 2 4-4"/>
-                        </svg>
-                        Para Principiantes
-                        <span class="beginner-badge">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                            </svg>
-                            RECOMENDADO
-                        </span>
-                        </h3>
-                    <div class="beginner-tips">
-                        <h4>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <path d="M12 16v-4"/>
-                                <path d="M12 8h.01"/>
-                            </svg>
-                            Consejos para tu primer dia
-                        </h4>
-                        <ul>
-                            <li>Empieza en las <strong>pistas de Yeti</strong> - son las mas suaves</li>
-                            <li>El paquete principiante incluye <strong>teleferico + telesilla + 2 pistas verdes</strong></li>
-                            <li>Alquila el equipo en el pueblo antes de subir - mas barato y mejor atencion</li>
-                            <li>Llega temprano (9:00) para evitar colas en el teleferico</li>
-                            <li>Reserva clase con monitor si es tu primera vez - vale la pena</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Yeti Park y Trineos Section -->
-                <div class="detail-section">
-                    <h3>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M8 14s1 2-2 4 0 0 7.54.54l3-3a5 5 0 0 0 7.07 7.07l-1.72 1.71"/>
-                        </svg>
-                        YETI PARK - Zona Infantil
-                    </h3>
-
-                    <!-- Trineos / Luge -->
-                    <div class="detail-card" style="margin-bottom: 16px;">
-                        <h4 style="display: flex; align-items: center; gap: 8px; color: #ec4899; font-size: 1rem;">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M2 12h6a4 4 0 0 11 11.73 4.73a4 4 0 0 11 11-4.73-4.74V12"/>
-                                <path d="M15 3v6a2 2 0 0 2 2l4.2 4.2a2 2 0 0 2 2.2V9"/>
-                                <path d="M13 2v6a2 2 0 0 2 2l2.73-4.74 2.25-2.82V12"/>
-                                <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                            </svg>
-                            PISTA DE TRINEOS (Luge)
-                        </h4>
-                        <p style="margin: 8px 0; color: var(--text-primary);">Dos zonas dedicadas para trineos con remontadores automáticos.</p>
-                        <ul class="detail-list">
-                            <li>
-                                <span class="label">Zona 1: Cirque du Lys</span>
-                                <span class="value" style="color: var(--secondary);">Altitud 1.850m</span>
-                            </li>
-                            <li>
-                                <span class="label">Zona 2: Pont d'Espagne</span>
-                                <span class="value" style="color: var(--secondary);">Entre abetos, mas abrigada</span>
-                            </li>
-                            <li>
-                                <span class="label">Longitud pista</span>
-                                <span class="value" style="color: var(--secondary);">3.3 km de bajada!</span>
-                            </li>
-                            <li>
-                                <span class="label">Remontador</span>
-                                <span class="value" style="color: var(--secondary);">Cinta para volver a subir</span>
-                            </li>
-                            <li>
-                                <span class="label">Mesas de picnic</span>
-                                <span class="value" style="color: var(--secondary);">Al lado de la pista</span>
-                            </li>
-                        </ul>
-                        <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--glass-border);">
-                            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 8px;">
-                                <strong style="color: var(--accent);">💡 Consejo:</strong> Llegar temprano al parking (8:30-8:45) asegura plaza y evitas colas.
-                            </p>
-                        </div>
-                    </div>
-
-                <!-- Prices Section -->
-                <div class="detail-section">
-                    <h3>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="8" cy="8" r="6"/>
-                            <path d="M9 11a4 4 0 0 11 11.13a3 3"/>
-                            <path d="M13 2v6"/>
-                            <path d="M13 2v6"/>
-                        </svg>
-                        Precios Forfait 2025
-                    </h3>
-                    <div class="detail-grid">
-                        <div class="detail-card highlight">
-                            <h4>PAQUETE PRINCIPIANTE</h4>
-                            <div class="price">10€ <span>/dia</span></div>
-                            <p>Teleferico + telesilla Clot + 2 pistas verdes</p>
-                        </div>
-                        <div class="detail-card">
-                            <h4>Forfait 1 Dia</h4>
-                            <div class="price">45€ <span>/dia</span></div>
-                            <p>Acceso completo a todas las pistas</p>
-                        </div>
-                        <div class="detail-card">
-                            <h4>Forfait 2 Dias</h4>
-                            <div class="price">85€ <span>/2 dias</span></div>
-                            <p>Mejor opción para estancias largas</p>
-                        </div>
-                        <div class="detail-card">
-                            <h4>Forfait 4 Dias</h4>
-                            <div class="price">140€ <span>/4 dias</span></div>
-                            <p>Acceso completo + descuentos en restaurantes</p>
-                        </div>
-                        <div class="detail-card">
-                            <h4>Solo Teleferico</h4>
-                            <div class="price">8€ <span>/ida</span></div>
-                            <p>Billete subida al teleferico (ida y vuelta)</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Teleferico Section -->
-                <div class="detail-section">
-                    <h3>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M9 11a4 4 0 0 11 11.13a3 3"/>
-                            <path d="M13 2v6"/>
-                            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                        Teleferico Pueblo - Estacion
-                    </h3>
-                    <ul class="detail-list">
-                        <li>
-                            <span class="label">Distancia</span>
-                            <span class="value">Sube desde el parking (5 min)</span>
-                        </li>
-                        <li>
-                            <span class="label">Duracion trayecto</span>
-                            <span class="value">~10 minutos</span>
-                        </li>
-                        <li>
-                            <span class="label">Horario</span>
-                            <span class="value">9:00 - 16:30</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Cafeteria Section -->
-                <div class="detail-section">
-                    <h3>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M9 11a4 4 0 0 11 11.13a3 3"/>
-                            <path d="M13 2v6"/>
-                            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                        Cafetería Principal de la Estacion
-                    </h3>
-                    <ul class="detail-list" style="margin-top: 8px;">
-                        <li>
-                            <span class="label">Ubicación</span>
-                            <span class="value">Partida superior del teleferico</span>
-                        </li>
-                        <li>
-                            <span class="label">Horario</span>
-                            <span class="value">9:00 - 16:30</span>
-                        </li>
-                        <li>
-                            <span class="label">Menú aproximado</span>
-                            <span class="value">10-15€ plato + bebida</span>
-                        </li>
-                        <li>
-                            <span class="label">Especialidad</span>
-                            <span class="value">Tartiflette, fondas, crepes</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Parking gratuito -->
-                <div class="detail-section">
-                    <h3>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M9 11a4 4 0 0 11 11.13a3 3"/>
-                            <path d="M13 2v6"/>
-                            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                        Parking Gratuito
-                        </h3>
-                    <div class="detail-card" style="margin-bottom: 16px;">
-                        <ul class="detail-list">
-                            <li>
-                                <span class="label">Ubicación</span>
-                                <span class="value">Parking du Tartas (gratuito)</span>
-                            </li>
-                            <li>
-                                <span class="label">Desde el parking</span>
-                                <span class="value">~5 min andando hasta el teleférico</span>
-                            </li>
-                            <li>
-                                <span class="label">Alternativa</span>
-                                <span class="value" style="color: var(--primary-light);">Autobús gratuito desde la estación de autobuses</span>
-                            </li>
-                            <li>
-                                <span class="label">Horario parking invierno</span>
-                                <span class="value">7:00 - 19:00</span>
-                            </li>
-                        </ul>
-                        <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--glass-border);">
-                            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 8px;">
-                                <strong style="color: var(--accent);">💡 Consejo:</strong> Llegar temprano al parking (8:30-8:45) asegura plaza y evitas colas.
-                            </p>
-                        </div>
-                    </div>
-
-                <!-- Cómo llegar al teleférico -->
-                <div class="detail-card highlight">
-                    <div class="detail-card" style="margin-bottom: 12px;">
-                        <h4 style="display: flex; align-items: center; gap: 8px; color: var(--secondary); font-size: 1rem;">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M2 12h6a4 4 0 0 11 11.73 4 73a4 4 0 0 11 11-4.73-4.74V12"/>
-                                <path d="M15 3v6a2 2 0 0 2l4.2 4.2a2 2 0 0 2h4v2a2 2 0 0 2 2V9"/>
-                                <path d="M13 2v6a2 2 0 0 2 2l2.73-4.74 2.25-2.82V12"/>
-                            </svg>
-                            Cómo llegar al Teleférico
-                        </h4>
-                        <p style="margin-bottom: 12px; color: var(--text-primary);">El teleférico está situado en la <strong style="color: var(--primary-light);">Cirque du Lys</strong> a 1850m de altitud.</p>
-                        <ul class="detail-list">
-                            <li>
-                                <span class="label">Opción 1</span>
-                                <span class="value" style="color: var(--secondary);">Andar desde parking (5 min) - RECOMENDADO</span>
-                            </li>
-                            <li>
-                                <span class="label">Opción 2</span>
-                                <span class="value">Teleférico directo desde el parking</span>
-                            </li>
-                            <li>
-                                <span class="label">Opción 3</span>
-                                <span class="value">Autobús gratuito</span>
-                            </li>
-                            <li>
-                                <span class="label">Opción 4</span>
-                                <span class="value">Taxi (aprox. 15€ desde parking)</span>
-                            </li>
-                        </ul>
-
-                        <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--glass-border);">
-                            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 8px;">
-                                <strong style="color: var(--accent);">📍 Ubicación Parking Tartas:</strong><br>
-                                Parking du Tartas, 65110 Cauterets, Francia<br>
-                                <span style="font-size: 0.85rem; color: var(--text-muted);">Coordenadas: 42.8869, -0.1431</span>
-                            </p>
-                            <a href="https://maps.app.goo.gl/nL74ftyVBR3QHYa18" target="_blank"
-                               style="background: var(--primary); color: white; padding: 12px 20px; border-radius: 10px; font-size: 1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; font-weight: 600;">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M14 2H6a2 2 0 0 2 2v16a2 2 0 0 2 2h12a2 2 0 0 2 2V8z"/>
-                                    <polyline points="14 2 14 8 20 8"/>
-                                    <line x1="16" y1="13" x2="8" y2="13"/>
-                                    <line x1="16" y1="17" x2="8" y2="17"/>
-                                </svg>
-                                Ver en Google Maps
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Links Section -->
-                <div class="detail-section">
-                    <h3>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M10 13a5 5 0 0 7.54.54l3-3a5 5 0 0 7.07-7.07l-1.72 1.71"/>
-                                <path d="M14 11a5 5 0 0 7.54-.54l-3 3a5 5 0 0 7.07 0 0 7.07l1.71"/>
-                                <path d="M14 11a5 5 0 0 7.54-.54l-3 3a5 5 0 0 7.07l1.71"/>
-                                <path d="M14 11a5 5 0 0 7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71"/>
-                                <path d="M14 11a5 5 0 0 0 7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71"/>
-                                <path d="M14 11a5 5 0 0 7.54-.54l-3 3a5 5 0 0 0 7 07 7.07l1.71"/>
-                                <path d="M14 11a5 5 0 0 7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71"/>
-                                Enlaces Utiles
-                        </h3>
-                    </div>
-                    <div class="detail-links">
-                        <a href="https://www.cauterets.com/es/esqui/como-elegir-su-forfait-de-invierno/" target="_blank" class="detail-link">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                            </svg>
-                            Web oficial - Forfaits
-                        </a>
-                        <a href="tel:+33562925050" class="detail-link" style="background: var(--accent);">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 0 0 1 22.16.92z"/>
-                            </svg>
-                            Oficina Turismo
-                        </a>
-                    </div>
-                </div>
-
-                    <!-- Tarjetas por Dia -->
-                    <div class="detail-section">
-                        <h3>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="currentColor" stroke-width="2"/>
-                                    <path d="M9 11a4 4 0 11 11.13a3 3"/>
-                                    <path d="M13 2v6"/>
-                                    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                                </svg>
-                            Tarjetas del Viaje
-                        </h3>
-
-                        <!-- Dia 1 -->
-                        <div class="detail-card highlight" style="margin-bottom: 12px;">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
-                                <div style="flex: 1; gap: 8px;">
-                                    <span style="font-size: 1.5rem; font-weight: 700; color: var(--secondary);">Día 1</span>
-                                    <span style="font-size: 0.9rem; color: var(--text-muted);">Domingo 15 Feb</span>
-                                </div>
-                                <div style="text-align: right;">
-                                    <span class="beginner-badge" style="background: linear-gradient(135deg, #10b981, #34d399);">Día 1</span>
-                                </div>
-                            </div>
-                            <p style="margin-bottom: 8px;"><strong style="color: var(--text-primary);">📍 Guardo → Biarritz</strong></p>
-                            <div class="detail-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px;">
-                                <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
-                                    <div style="font-size: 2rem; margin-bottom: 4px;">🏨️</div>
-                                    <div style="font-weight: 600;">Alojamiento</div>
-                                    <div style="font-size: 0.85rem; color: var(--text-secondary);">Casa rural en Palencia</div>
-                                </div>
-                                <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
-                                    <div style="font-size: 2rem; margin-bottom: 4px;">🏖️</div>
-                                    <div style="font-weight: 600;">Descanso</div>
-                                    <div style="font-size: 0.85rem; color: var(--text-secondary);">Biarritz - Playa y glamour</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Dia 2 -->
-                        <div class="detail-card highlight" style="margin-bottom: 12px;">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
-                                <div style="flex: 1; gap: 8px;">
-                                    <span style="font-size: 1.5rem; font-weight: 700; color: var(--secondary);">Día 2</span>
-                                    <span style="font-size: 0.9rem; color: var(--text-muted);">Lunes 16 Feb</span>
-                                </div>
-                                <div style="text-align: right;">
-                                    <span class="beginner-badge" style="background: linear-gradient(135deg, #ec4899, #f472b6);">Día 2.5</span>
-                                </div>
-                            </div>
-                            <p style="margin-bottom: 8px;"><strong style="color: var(--text-primary);">📍 Pau → Lourdes</strong></p>
-                            <div class="detail-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px;">
-                                <div style="text-align: center; padding: 12px; background: rgba(16, 185, 129, 0.05); border-radius: 8px;">
-                                    <div style="font-size: 2rem; margin-bottom: 4px;">🏛️</div>
-                                    <div style="font-weight: 600;">Visita</div>
-                                    <div style="font-size: 0.85rem; color: var(--text-secondary);">Castillo histórico de los Reyes de Francia</div>
-                                </div>
-                                <div style="text-align: center; padding: 12px; background: rgba(236, 72, 153, 0.05); border-radius: 8px;">
-                                    <div style="font-size: 2rem; margin-bottom: 4px;">🏰️</div>
-                                    <div style="font-weight: 600;">Noche</div>
-                                    <div style="font-size: 0.85rem; color: var(--text-secondary);">Bar Gascónico y casino</div>
-                                </div>
-                                <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
-                                    <div style="font-size: 2rem; margin-bottom: 4px;">⛷️</div>
-                                    <div style="font-weight: 600;">Santuario</div>
-                                    <div style="font-size: 0.85rem; color: var(--text-secondary);">Gruta y basílica</div>
-                                </div>
-                                <div style="text-align: center; padding: 12px; background: rgba(22, 163, 74, 0.05); border-radius: 8px;">
-                                    <div style="font-size: 2rem; margin-bottom: 4px;">🚠️</div>
-                                    <div style="font-weight: 600;">Descanso</div>
-                                    <div style="font-size: 0.85rem; color: var(--text-secondary);">Estación de tren</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Dia 3 -->
-                        <div class="detail-card">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
-                                <div style="flex: 1; gap: 8px;">
-                                    <span style="font-size: 1.5rem; font-weight: 700; color: var(--secondary);">Día 3</span>
-                                    <span style="font-size: 0.9rem; color: var(--text-muted);">Martes 17 Feb</span>
-                                </div>
-                                <div style="text-align: right;">
-                                    <span class="beginner-badge" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">Día 3</span>
-                                </div>
-                            </div>
-                            <p style="margin-bottom: 8px;"><strong style="color: var(--text-primary);">📍 Lourdes → Cauterets</strong></p>
-                            <div class="detail-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px;">
-                                <div style="text-align: center; padding: 12px; background: rgba(139, 92, 246, 0.05); border-radius: 8px;">
-                                    <div style="font-size: 2rem; margin-bottom: 4px;">⛪</div>
-                                    <div style="font-weight: 600;">Oración</div>
-                                    <div style="font-size: 0.85rem; color: var(--text-secondary);">Santuario de Lourdes</div>
-                                </div>
-                                <div style="text-align: center; padding: 12px; background: rgba(244, 163, 94, 0.05); border-radius: 8px;">
-                                    <div style="font-size: 2rem; margin-bottom: 4px;">🎿</div>
-                                    <div style="font-weight: 600;">Esquí</div>
-                                    <div style="font-size: 0.85rem; color: var(--text-secondary);">Estación de esquí</div>
-                                </div>
-                                <div style="text-align: center; padding: 12px; background: rgba(99, 102, 241, 0.05); border-radius: 8px;">
-                                    <div style="font-size: 2rem; margin-bottom: 4px;">🏠️</div>
-                                    <div style="font-weight: 600;">Alquiler</div>
-                                    <div style="font-size: 0.85rem; color: var(--text-secondary);">Material de esquí</div>
-                                </div>
-                            </div>
-                        </div>
-
-    <!-- Cauterets Detail Modal -->
-    <div class="detail-modal" id="cauterets-modal">
-        <div class="detail-content">
-            <div class="detail-header" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);">
-                <h2>
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="m8 3 4 8 5 9 3"/>
-                        <path d="M17 21v-2a4 4 0 0 7.5.54 6.07l-1.73 2.27-2 2 0 0 2 2h12a2 2 0 0 2 2V8z"/>
-                    </svg>
-                    Cauterets - Estacion de Esqui
-                </h2>
-                <button class="detail-close" onclick="closeCauteretsModal()">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y2="6" x2="8" y2="13"/>
-                        <line x1="16" y1="17" x2="8" y2="17"/>
-                    </svg>
-                </button>
-            </div>
-
-            <div class="detail-body">
-
-                <!-- Weather Section -->
-                <div class="detail-section">
-                    <h3>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M14 2H6a2 2 0 0 0 11 11.13a3 3"/>
-                            <path d="M13 2v6"/>
-                            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                        Tiempo en la Estacion
-                    </h3>
-                    <div class="detail-weather">
-                        <div class="detail-weather-icon" id="cauterets-weather-icon">
-                            <div class="loading-spinner"></div>
-                        </div>
-                        <div class="detail-weather-info">
-                            <h4 id="cauterets-temp">--°C</h4>
-                            <p id="cauterets-condition">Cargando...</p>
-                            <div style="margin-left: auto; text-align: right;">
-                                <p style="font-size: 0.85rem; color: var(--text-muted);">Viento: <span id="cauterets-wind">-- km/h</span></p>
-                                <p style="font-size: 0.85rem; color: var(--text-muted);">Humedad: <span id="cauterets-humidity">--%</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Plano de Pistas PDF -->
-                <div class="detail-section">
-                    <h3>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 2 2v16a2 2 0 0 2 2h12a2 2 0 0 2 2V8z"/>
-                            <polyline points="14 2 14 8 20 8"/>
-                            <line x1="16" y1="13" x2="8" y2="13"/>
-                            <line x1="10" y1="9" x2="8" y2="9"/>
-                        </svg>
-                        Plano de Pistas Cauterets 2024-25
-                    </h3>
-                    <div style="border-radius: var(--radius-sm); overflow: hidden; background: rgba(255,255,255,0.05);">
-                        <a href="https://www.cauterets.com/app/uploads/2024/12/PLAN-PISTES-HIVER-CAUTERETS-24-25-WEB-1.pdf" target="_blank" style="display: block;">
-                            <img src="https://www.cauterets.com/app/uploads/2024/12/PLAN-PISTES-HIVER-CAUTERETS-24-25-WEB-1-2048x1451.jpg"
-                                 alt="Plano de pistas Cauterets 2024-25"
-                                 style="width: 100%; height: auto; display: block;">
-                        </a>
-                        <div style="padding: 16px; text-align: center; background: rgba(0,0,0,0.3);">
-                            <a href="https://www.cauterets.com/app/uploads/2024/12/PLAN-PISTES-HIVER-CAUTERETS-24-25-WEB-1.pdf" target="_blank"
-                               style="background: var(--secondary); color: white; padding: 14px 24px; border-radius: 10px; font-size: 1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; font-weight: 600;">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M14 2H6a2 2 0 0 2 2v16a2 2 0 0 2 2h12a2 2 0 0 2 2V8z"/>
-                                    <polyline points="14 2 14 8 20 8"/>
-                                    <line x1="16" y1="13" x2="8" y2="13"/>
-                                    <line x1="16" y1="17" x2="8" y2="17"/>
-                                </svg>
-                                Ver PDF Completo
-                            </a>
-                            <a href="https://www.n-py.com/fr/cauterets/plan-des-pistes" target="_blank"
-                               style="background: var(--primary); color: white; padding: 14px 24px; border-radius: 10px; font-size: 1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; font-weight: 600;">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <polygon points="10 8 16 12 10 16 10 8"/>
-                                </svg>
-                                Mapa Interactivo
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Beginner Section -->
-                <div class="detail-section">
-                    <h3>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="m9 12 2 2 4-4"/>
-                        </svg>
-                        Para Principiantes
-                        <span class="beginner-badge">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                            </svg>
-                            RECOMENDADO
-                        </span>
-                        </h3>
-                    <div class="beginner-tips">
-                        <h4>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <path d="M12 16v-4"/>
-                                <path d="M12 8h.01"/>
-                            </svg>
-                            Consejos para tu primer dia
-                        </h4>
-                        <ul>
-                            <li>Empieza en las <strong>pistas de Yeti</strong> - son las mas suaves</li>
-                            <li>El paquete principiante incluye <strong>teleferico + telesilla + 2 pistas verdes</strong></li>
-                            <li>Alquila el equipo en el pueblo antes de subir - mas barato y mejor atencion</li>
-                            <li>Llega temprano (9:00) para evitar colas en el teleferico</li>
-                            <li>Reserva clase con monitor si es tu primera vez - vale la pena</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Yeti Park y Trineos Section -->
-                <div class="detail-section">
-                    <h3>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M8 14s1 2-2 4 0 0 7.54.54l3-3a5 5 0 0 0 7.07-7.07l-1.72 1.71"/>
-                        </svg>
-                        YETI PARK - Zona Infantil
-                    </h3>
-
-                    <!-- Trineos / Luge -->
-                    <div class="detail-card" style="margin-bottom: 16px;">
-                        <h4 style="display: flex; align-items: center; gap: 8px; color: #ec4899; font-size: 1rem;">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M2 12h6a4 4 0 0 0 11 11.73 4 73a4 4 0 0 0 11 11-4.73-4.74V12"/>
-                                <path d="M15 3v6a2 2 0 0 2l4.2 4.2a2 2 0 0 2 2.2V9"/>
-                                <path d="M13 2v6a2 2 0 0 2 2l2.73-4.74 2.25-2.82V12"/>
-                                <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                            </svg>
-                            PISTA DE TRINEOS (Luge)
-                        </h4>
-                        <p style="margin: 8px 0; color: var(--text-primary);">Dos zonas dedicadas para trineos con remontadores automáticos.</p>
-                        <ul class="detail-list">
-                            <li>
-                                <span class="label">Zona 1: Cirque du Lys</span>
-                                <span class="value" style="color: var(--secondary);">Altitud 1.850m</span>
-                            </li>
-                            <li>
-                                <span class="label">Zona 2: Pont d'Espagne</span>
-                                <span class="value" style="color: var(--secondary);">Entre abetos, mas abrigada</span>
-                            </li>
-                            <li>
-                                <span class="label">Longitud pista</span>
-                                <span class="value" style="color: var(--secondary);">3.3 km de bajada!</span>
-                            </li>
-                            <li>
-                                <span class="label">Remontadores</span>
-                                <span class="value" style="color: var(--secondary);">Cinta para volver a subir</span>
-                            </li>
-                            <li>
-                                <span class="label">Mesas de picnic</span>
-                                <span class="value">Al lado de la pista</span>
-                            </li>
-                        </ul>
-                        <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--glass-border);">
-                            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 8px;">
-                                <strong style="color: var(--accent);">💡 Consejo:</strong> Llegar temprano al parking (8:30-8:45) asegura plaza y evitas colas.
-                            </p>
-                        </div>
-                    </div>
-
-                <!-- Prices Section -->
-                <div class="detail-section">
-                    <h3>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="8" cy="8" r="6"/>
-                            <path d="M9 11a4 4 0 0 11 11.13a3 3"/>
-                            <path d="M13 2v6"/>
-                        </svg>
-                        Precios Forfait 2025
-                    </h3>
-                    <div class="detail-grid">
-                        <div class="detail-card highlight">
-                            <h4>PAQUETE PRINCIPIANTE</h4>
-                            <div class="price">10€ <span>/dia</span></div>
-                            <p>Teleferico + telesilla Clot + 2 pistas verdes</p>
-                        </div>
-                        <div class="detail-card">
-                            <h4>Forfait 1 Dia</h4>
-                            <div class="price">45€ <span>/dia</span></div>
-                            <p>Acceso completo a todas las pistas</p>
-                        </div>
-                        <div class="detail-card">
-                            <h4>Forfait 2 Dias</h4>
-                            <div class="price">85€ <span>/2 dias</span></div>
-                            <p>Mejor opción para estancias largas</p>
-                        </div>
-                        <div class="detail-card">
-                            <h4>Forfait 4 Dias</h4>
-                            <div class="price">140€ <span>/4 dias</span></div>
-                            <p>Acceso completo + descuentos en restaurantes</p>
-                        </div>
-                        <div class="detail-card">
-                            <h4>Solo Teleferico</h4>
-                            <div class="price">8€ <span>/ida</span></div>
-                            <p>Billete subida al teleferico (ida y vuelta)</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Teleferico Section -->
-                <div class="detail-section">
-                    <h3>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M9 11a4 4 0 0 11 11.13a3 3"/>
-                            <path d="M13 2v6"/>
-                            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                        Teleferico Pueblo - Estacion
-                    </h3>
-                    <ul class="detail-list">
-                        <li>
-                            <span class="label">Distancia</span>
-                            <span class="value">Sube desde el parking (5 min)</span>
-                        </li>
-                        <li>
-                            <span class="label">Duracion trayecto</span>
-                            <span class="value">~10 minutos</span>
-                        </li>
-                        <li>
-                            <span class="label">Horario</span>
-                            <span class="value">9:00 - 16:30</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Cafeteria Section -->
-                <div class="detail-section">
-                    <h3>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M9 11a4 4 0 0 11 11.13a3 3"/>
-                            <path d="M13 2v6"/>
-                            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                        Cafetería Principal de la Estacion
-                    </h3>
-                    <ul class="detail-list" style="margin-top: 8px;">
-                        <li>
-                            <span class="label">Ubicación</span>
-                            <span class="value">Partida superior del teleferico</span>
-                        </li>
-                        <li>
-                            <span class="label">Horario</span>
-                            <span class="value">9:00 - 16:30</span>
-                        </li>
-                        <li>
-                            <span class="label">Menú aproximado</span>
-                            <span class="value">10-15€ plato + bebida</span>
-                        </li>
-                        <li>
-                            <span class="label">Especialidad</span>
-                            <span class="value">Tartiflette, fondas, crepes</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Parking gratuito -->
-                <div class="detail-section">
-                    <h3>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M9 11a4 4 0 0 11 11.13a3 3"/>
-                            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                        Parking Gratuito
-                        </h3>
-                    <div class="detail-card" style="margin-bottom: 16px;">
-                        <ul class="detail-list">
-                            <li>
-                                <span class="label">Ubicación</span>
-                                <span class="value">Parking du Tartas (gratuito)</span>
-                            </li>
-                            <li>
-                                <span class="label">Desde el parking</span>
-                                <span class="value">~5 min andando hasta el teleférico</span>
-                            </li>
-                            <li>
-                                <span class="label">Alternativa</span>
-                                <span class="value" style="color: var(--primary-light);">Autobús gratuito desde la estación de autobuses</span>
-                            </li>
-                            <li>
-                                <span class="label">Horario parking invierno</span>
-                                <span class="value">7:00 - 19:00</span>
-                            </li>
-                        </ul>
-                        <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--glass-border);">
-                            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 8px;">
-                                <strong style="color: var(--accent);">💡 Consejo:</strong> Llegar temprano al parking (8:30-8:45) asegura plaza y evitas colas.
-                            </p>
-                        </div>
-                    </div>
-
-                <!-- Cómo llegar al teleférico -->
-                <div class="detail-card highlight">
-                    <div class="detail-card" style="margin-bottom: 12px;">
-                        <h4 style="display: flex; align-items: center; gap: 8px; color: var(--secondary); font-size: 1rem;">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M2 12h6a4 4 0 0 11 11.73 4 73a4 4 0 0 11 11-4.73 4.74V12"/>
-                                <path d="M15 3v6a2 2 0 0 2 2l4.2 4.2a2 2 0 0 2 2.2V9"/>
-                                <path d="M13 2v6a2 2 0 0 2 2l2.73-4.74 2.25-2.82V12"/>
-                            </svg>
-                            Cómo llegar al Teleférico
-                        </h4>
-                        <p style="margin-bottom: 12px; color: var(--text-primary);">El teleférico está situado en la <strong style="color: var(--primary-light);">Cirque du Lys</strong> a 1850m de altitud.</p>
-                        <ul class="detail-list">
-                            <li>
-                                <span class="label">Opción 1</span>
-                                <span class="value" style="color: var(--secondary);">Andar desde parking (5 min) - RECOMENDADO</span>
-                            </li>
-                            <li>
-                                <span class="label">Opción 2</span>
-                                <span class="value">Teleférico directo desde el parking</span>
-                            </li>
-                            <li>
-                                <span class="label">Opción 3</span>
-                                <span class="value">Autobús gratuito</span>
-                            </li>
-                            <li>
-                                <span class="label">Opción 4</span>
-                                <span class="value">Taxi (aprox. 15€ desde parking)</span>
-                            </li>
-                        </ul>
-                        <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--glass-border);">
-                            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 8px;">
-                                <strong style="color: var(--accent);">📍 Ubicación Parking Tartas:</strong><br>
-                                Parking du Tartas, 65110 Cauterets, Francia<br>
-                                <span style="font-size: 0.85rem; color: var(--text-muted);">Coordenadas: 42.8869, -0.1431</span>
-                            </p>
-                            <a href="https://maps.app.goo.gl/nL74ftyVBR3QHYa18" target="_blank"
-                               style="background: var(--primary); color: white; padding: 12px 20px; border-radius: 10px; font-size: 1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; font-weight: 600;">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M14 2H6a2 2 0 0 2 2v16a2 2 0 0 2 2h12a2 2 0 0 2 2V8z"/>
-                                    <polyline points="14 2 14 8 20 8"/>
-                                    <line x1="16" y1="13" x2="8" y2="13"/>
-                                    <line x1="16" y1="17" x2="8" y2="17"/>
-                                </svg>
-                                Ver en Google Maps
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Links Section -->
-                <div class="detail-section">
-                    <h3>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M10 13a5 5 0 0 7.54.54l3-3a5 5 0 0 0 7.07-7.07l-1.72 1.71"/>
-                                <path d="M14 11a5 5 0 0 7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71"/>
-                                <path d="M14 11a5 5 0 0 7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71"/>
-                                Enlaces Utiles
-                        </h3>
-                    </div>
-                    <div class="detail-links">
-                        <a href="https://www.cauterets.com/es/esqui/como-elegir-su-forfait-de-invierno/" target="_blank" class="detail-link">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                            </svg>
-                            Web oficial - Forfaits
-                        </a>
-                        <a href="tel:+33562925050" class="detail-link" style="background: var(--accent);">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 0 0 1-6-6 19.79 0 0 1-6-6 19.79 0 0 1-6-4.11 2.84 12.84 0 0 0 1 22.16 92z"/>
-                                </svg>
-                            Oficina Turismo
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body>
+</body>
 </html>
