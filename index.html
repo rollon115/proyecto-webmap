@@ -495,6 +495,86 @@
         </aside>
     </main>
 
+    <!-- Lourdes Detail Modal -->
+    <div class="detail-modal" id="lourdes-modal">
+        <div class="detail-content">
+            <div class="detail-header" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">
+                <h2>Lourdes - Qué Ver y Dónde Comer</h2>
+                <button class="detail-close" onclick="closeLourdesModal()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="detail-body">
+                <div class="detail-section">
+                    <h3>🏰 Château Fort - Musée Pyrénéen</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px;">Fortaleza medieval que vigila Lourdes desde la Edad Media. Ha sido residencia de condes, fortaleza militar y prisión real. Alberga el <strong>Museo Pirenaico</strong> (fundado en 1921) con colección etnográfica y de bellas artes. <strong>Vistas panorámicas</strong> excepcionales de la ciudad, el Santuario y los Pirineos. Jardín botánico con esculturas.</p>
+                </div>
+                <div class="detail-section">
+                    <h3>🕐 Horarios Castillo</h3>
+                    <ul class="detail-list">
+                        <li><span class="label">Lun - Dom</span><span class="value">10:00-12:00 / 14:00-17:00</span></li>
+                        <li><span class="label">Duración visita</span><span class="value">1h - 3h según modalidad</span></li>
+                    </ul>
+                    <div style="margin-top: 10px; padding: 10px; background: rgba(245,158,11,0.1); border-radius: var(--radius-sm); font-size: 0.85rem; color: var(--text-secondary);">💡 Se recomienda <strong>reservar online</strong>. Se admiten mascotas y tiene acceso para personas con movilidad reducida.</div>
+                </div>
+                <div class="detail-section">
+                    <h3>💰 Precios Castillo</h3>
+                    <div class="detail-grid">
+                        <div class="detail-card"><h4>AUTOGUIADA</h4><div class="price">8€</div><p>A tu ritmo con folleto</p></div>
+                        <div class="detail-card highlight"><h4>VISITA GUIADA</h4><div class="price">9€</div><p>1h15 min con guía (francés)</p></div>
+                        <div class="detail-card"><h4>PACK FAMILIA</h4><div class="price">18€</div><p>Visita libre familiar</p></div>
+                        <div class="detail-card"><h4>GRUPO (+15)</h4><div class="price">6€</div><p>Por persona, autoguiada</p></div>
+                    </div>
+                    <div style="margin-top: 12px; text-align: center;">
+                        <a href="https://www.chateaufort-lourdes.fr/es-ES/reservas-en-linea.html" target="_blank" class="detail-link" style="background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #1e293b;">🎟️ Reservar Entradas Online</a>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3>☕ Dónde Desayunar</h3>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div class="detail-card" style="border-left: 3px solid #f59e0b;">
+                            <h4>🥐 La Pie Colette</h4>
+                            <p style="color: var(--text-secondary); margin-top: 4px;">Panadería-café artesanal en el centro de Lourdes. Ideal para desayunar con bollería francesa, café y productos locales antes de visitar el Santuario o el Castillo.</p>
+                            <div style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap;">
+                                <a href="https://maps.app.goo.gl/ATRUPD6S4m9yNGt78" target="_blank" class="detail-link" style="padding: 8px 14px; font-size: 0.85rem;">📍 Ver en Google Maps</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3>🚗 Cómo Llegar al Castillo</h3>
+                    <ul class="detail-list">
+                        <li><span class="label">Dirección</span><span class="value">25 Rue Du Fort, 65100 Lourdes</span></li>
+                        <li><span class="label">Teléfono</span><span class="value">+33 5 62 42 37 37</span></li>
+                    </ul>
+                </div>
+                <div class="detail-section">
+                    <h3>🌤️ Tiempo en Lourdes</h3>
+                    <div class="detail-weather">
+                        <div class="detail-weather-icon" id="lourdes-weather-icon"><div class="loading-spinner"></div></div>
+                        <div class="detail-weather-info">
+                            <h4 id="lourdes-temp">--°C</h4>
+                            <p id="lourdes-condition">Cargando...</p>
+                        </div>
+                        <div style="margin-left: auto; text-align: right;">
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">Viento: <span id="lourdes-wind">-- km/h</span></p>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">Humedad: <span id="lourdes-humidity">--%</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3>🔗 Enlaces Útiles</h3>
+                    <div class="detail-links">
+                        <a href="https://www.chateaufort-lourdes.fr/es-ES/" target="_blank" class="detail-link" style="background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #1e293b;">🏰 Web Castillo</a>
+                        <a href="https://www.chateaufort-lourdes.fr/es-ES/ofertas.html" target="_blank" class="detail-link">🎟️ Ofertas</a>
+                        <a href="https://maps.app.goo.gl/ATRUPD6S4m9yNGt78" target="_blank" class="detail-link" style="background: var(--secondary);">🥐 La Pie Colette</a>
+                        <a href="tel:+33562423737" class="detail-link" style="background: var(--accent); color: #1e293b;">📞 05 62 42 37 37</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Cauterets Detail Modal -->
     <div class="detail-modal" id="cauterets-modal">
         <div class="detail-content">
