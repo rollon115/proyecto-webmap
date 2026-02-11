@@ -579,6 +579,105 @@
         </div>
     </div>
 
+    <!-- Toulouse Detail Modal -->
+    <div class="detail-modal" id="toulouse-modal">
+        <div class="detail-content">
+            <div class="detail-header" style="background: linear-gradient(135deg, #ef4444, #f87171);">
+                <h2>Toulouse - Cité de l'Espace</h2>
+                <button class="detail-close" onclick="closeToulouseModal()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="detail-body">
+                <div class="detail-section">
+                    <h3>🚀 Sobre la Cité de l'Espace</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px;">Parque temático dedicado al espacio y la conquista espacial. Replicas a tamaño real del cohete Ariane 5, la estación espacial MIR, planetario IMAX y exposiciones interactivas. ¡Una experiencia única!</p>
+                </div>
+                <div class="detail-section">
+                    <h3>🕐 Horarios (Febrero 2026)</h3>
+                    <ul class="detail-list">
+                        <li><span class="label">Lun - Jue</span><span class="value">10:00 - 17:00</span></li>
+                        <li><span class="label">Vie - Dom</span><span class="value">10:00 - 18:00</span></li>
+                        <li><span class="label">Taquillas cierran</span><span class="value">1 hora antes</span></li>
+                        <li><span class="label">⚠️ 1-5 Feb</span><span class="value" style="color: var(--danger);">Cerrado</span></li>
+                    </ul>
+                    <div style="margin-top: 10px; padding: 10px; background: rgba(245,158,11,0.1); border-radius: var(--radius-sm); font-size: 0.85rem; color: var(--text-secondary);">💡 Recomendamos dedicar al menos <strong>medio día</strong> a la visita. Se aconseja comprar entradas online.</div>
+                </div>
+                <div class="detail-section">
+                    <h3>💰 Precios Entrada 1 Día</h3>
+                    <div class="detail-grid">
+                        <div class="detail-card"><h4>ADULTO</h4><div class="price">29€</div><p>Tarifa normal</p></div>
+                        <div class="detail-card highlight"><h4>NIÑO / JOVEN</h4><div class="price">22,50€</div><p>De 5 a 18 años</p></div>
+                        <div class="detail-card"><h4>ESTUDIANTE</h4><div class="price">22,50€</div><p>Con carné de estudiante</p></div>
+                        <div class="detail-card"><h4>MENOR DE 5</h4><div class="price" style="color: var(--accent);">GRATIS</div><p>Acceso gratuito</p></div>
+                        <div class="detail-card"><h4>ADULTO REDUCIDA</h4><div class="price">26€</div><p>Desempleados / Discapacidad</p></div>
+                        <div class="detail-card"><h4>PACK TRIBU</h4><div class="price">-1,50€ <span>/billete</span></div><p>De 4 a 6 entradas</p></div>
+                    </div>
+                    <div style="margin-top: 12px; text-align: center;">
+                        <a href="https://billets.cite-espace.com/Exhibitions/Register?ID=71A7A846-C098-ED11-A2DD-B6A507C45F96" target="_blank" class="detail-link" style="background: linear-gradient(135deg, #ef4444, #f87171);">🎟️ Comprar Entradas Online</a>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3>🍽️ Dónde Comer Dentro</h3>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div class="detail-card" style="border-left: 3px solid var(--secondary);">
+                            <h4>🍴 Restaurante L'Astronaute</h4>
+                            <p style="color: var(--text-secondary); margin-top: 4px;">Restaurante principal en los Jardines, bajo el hall de entrada. Menú infantil disponible.</p>
+                            <p style="color: var(--secondary); font-weight: 600; margin-top: 6px;">Cocina abierta hasta las 15:00</p>
+                        </div>
+                        <div class="detail-card" style="border-left: 3px solid var(--primary-light);">
+                            <h4>☕ El 149 Café</h4>
+                            <p style="color: var(--text-secondary); margin-top: 4px;">Snack lounge de diseño en el Astralia. Solo fines de semana y vacaciones escolares.</p>
+                            <p style="color: var(--primary-light); font-weight: 600; margin-top: 6px;">Cocina abierta hasta las 14:30</p>
+                        </div>
+                        <div class="detail-card" style="border-left: 3px solid var(--accent);">
+                            <h4>🥖 La Terrasse Guyanaise</h4>
+                            <p style="color: var(--text-secondary); margin-top: 4px;">Bocadillería frente al cohete Ariane 5. Abierta solo en ciertos periodos (vacaciones, festivos).</p>
+                        </div>
+                        <div class="detail-card" style="border-left: 3px solid var(--text-muted);">
+                            <h4>🧺 Zona Picnic</h4>
+                            <p style="color: var(--text-secondary); margin-top: 4px;">2 salas de picnic en los jardines, protegidas en caso de lluvia. Puedes traer tu propia comida.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3>🚗 Cómo Llegar</h3>
+                    <ul class="detail-list">
+                        <li><span class="label">Dirección</span><span class="value">Avenue Jean Gonord, Toulouse</span></li>
+                        <li><span class="label">Transporte público</span><span class="value">Bus Lineo L12 → "Cité de l'espace"</span></li>
+                        <li><span class="label">Parking</span><span class="value">Gratuito en el recinto</span></li>
+                    </ul>
+                    <div style="margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap;">
+                        <a href="https://maps.app.goo.gl/3YB2vPdQc4Q5f8xNA" target="_blank" class="detail-link">📍 Ver en Google Maps</a>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3>🌤️ Tiempo en Toulouse</h3>
+                    <div class="detail-weather">
+                        <div class="detail-weather-icon" id="toulouse-weather-icon"><div class="loading-spinner"></div></div>
+                        <div class="detail-weather-info">
+                            <h4 id="toulouse-temp">--°C</h4>
+                            <p id="toulouse-condition">Cargando...</p>
+                        </div>
+                        <div style="margin-left: auto; text-align: right;">
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">Viento: <span id="toulouse-wind">-- km/h</span></p>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">Humedad: <span id="toulouse-humidity">--%</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3>🔗 Enlaces Útiles</h3>
+                    <div class="detail-links">
+                        <a href="https://es.cite-espace.com/visitar/billetes/billete-1-dia/" target="_blank" class="detail-link" style="background: linear-gradient(135deg, #ef4444, #f87171);">🎟️ Billetes - Web Oficial</a>
+                        <a href="https://es.cite-espace.com/visitar/horario/" target="_blank" class="detail-link">📅 Horarios</a>
+                        <a href="https://es.cite-espace.com/visitar/donde-comer/" target="_blank" class="detail-link" style="background: var(--secondary);">🍽️ Menús</a>
+                        <a href="tel:+33567222324" class="detail-link" style="background: var(--accent); color: #1e293b;">📞 05 67 22 23 24</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         try { lucide.createIcons(); } catch(e) { console.warn('Lucide init:', e); }
@@ -809,6 +908,7 @@
         // === FLY TO POI ===
         function flyToPOI(poiKey) {
             if (poiKey === 'cauterets') openCauteretsModal();
+            if (poiKey === 'toulouse') openToulouseModal();
             var poi = poiData[poiKey];
             map.flyTo(poi.coords, 12, { duration: 1.5 });
             markers[poiKey].openPopup();
@@ -909,8 +1009,44 @@
             document.getElementById('cauterets-modal').classList.remove('active');
             document.body.style.overflow = '';
         }
-        document.addEventListener('click', function(e) { if (e.target.classList.contains('detail-modal')) closeCauteretsModal(); });
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeCauteretsModal(); });
+        // === TOULOUSE MODAL ===
+        function openToulouseModal() {
+            document.getElementById('toulouse-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            fetchToulouseWeather();
+        }
+        function closeToulouseModal() {
+            document.getElementById('toulouse-modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        async function fetchToulouseWeather() {
+            try {
+                var resp = await fetch('https://api.open-meteo.com/v1/forecast?latitude=43.5867&longitude=1.4911&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=Europe/Paris');
+                var data = await resp.json();
+                if (data.current) {
+                    document.getElementById('toulouse-temp').textContent = Math.round(data.current.temperature_2m) + '°C';
+                    document.getElementById('toulouse-condition').textContent = getWeatherDescription(data.current.weather_code);
+                    document.getElementById('toulouse-wind').textContent = Math.round(data.current.wind_speed_10m) + ' km/h';
+                    document.getElementById('toulouse-humidity').textContent = data.current.relative_humidity_2m + '%';
+                    document.getElementById('toulouse-weather-icon').innerHTML = getWeatherIcon(data.current.weather_code, 40);
+                }
+            } catch (e) { console.error('Toulouse weather:', e); }
+        }
+
+        // === MODAL CLOSE HANDLERS ===
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('detail-modal')) {
+                closeCauteretsModal();
+                closeToulouseModal();
+            }
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeCauteretsModal();
+                closeToulouseModal();
+            }
+        });
 
         async function fetchCauteretsWeather() {
             try {
