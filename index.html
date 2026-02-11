@@ -264,6 +264,60 @@
             margin-top: 8px;
         }
 
+        .popup-tag {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary-light);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-top: 8px;
+        }
+
+        .popup-details {
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .popup-details h4 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .pistas-grid {
+            display: grid;
+            gap: 4px;
+        }
+
+        .pista {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .zonas-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .zona-tag {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            background: rgba(139, 92, 246, 0.2);
+            color: #a78bfa;
+        }
+
+        .servicios-text, .remontes-text {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
         /* Detail Modal */
         .detail-modal {
             position: fixed;
@@ -1061,11 +1115,20 @@
             cauterets: {
                 name: 'Cauterets',
                 coords: [42.8869, -0.1431],
-                description: 'Estacion termal y de esquí en el corazon del Parque Nacional de los Pirineos.',
+                description: 'Estación termal y de esquí en el corazón del Parque Nacional de los Pirineos. Estación base: Gare du Lys (1850m). Picos: Soum de Grum (2657m), Soum du Mauloc (2074m).',
                 tag: 'Naturaleza y Deporte',
                 day: 'Día 4',
                 icon: 'mountain-snow',
-                color: '#8b5cf6'
+                color: '#8b5cf6',
+                pistas: {
+                    verde: 'Pistas fáciles para principiantes',
+                    azul: 'Pistas de dificultad media',
+                    roja: 'Pistas difíciles (Grand Barbat, Baumes, Crêtes)',
+                    negra: 'Pistas muy difíciles'
+                },
+                zonas: ['Snowpark', 'Zona luge (tobogán)', 'Zona débutant', 'Boardercross - Yeti Line', 'Zone Hamac', 'Fun Line'],
+                servicios: ['Restaurantes', 'Bares', 'Guardería du Lys', 'Primeros auxilios', 'Taquilla'],
+                remontes: ['Telecabinas', 'Telesillas desmontables', 'Telesillas fijos', 'Teleesquís', 'Cintas transportadoras']
             }
         };
 
@@ -1128,6 +1191,35 @@
                     </h3>
                     <p>${poi.description}</p>
                     <span class="popup-tag">${poi.tag}</span>
+                    ${poi.pistas ? `
+                    <div class="popup-details">
+                        <h4>Pistas</h4>
+                        <div class="pistas-grid">
+                            <span class="pista verde">🟢 ${poi.pistas.verde}</span>
+                            <span class="pista azul">🔵 ${poi.pistas.azul}</span>
+                            <span class="pista roja">🔴 ${poi.pistas.roja}</span>
+                            <span class="pista negra">⚫ ${poi.pistas.negra}</span>
+                        </div>
+                    </div>
+                    ` : ''}
+                    ${poi.zonas ? `
+                    <div class="popup-details">
+                        <h4>Zonas Especiales</h4>
+                        <div class="zonas-list">${poi.zonas.map(z => `<span class="zona-tag">${z}</span>`).join('')}</div>
+                    </div>
+                    ` : ''}
+                    ${poi.servicios ? `
+                    <div class="popup-details">
+                        <h4>Servicios</h4>
+                        <p class="servicios-text">${poi.servicios.join(' • ')}</p>
+                    </div>
+                    ` : ''}
+                    ${poi.remontes ? `
+                    <div class="popup-details">
+                        <h4>Remontes</h4>
+                        <p class="remontes-text">${poi.remontes.join(' • ')}</p>
+                    </div>
+                    ` : ''}
                 </div>
             `);
 
