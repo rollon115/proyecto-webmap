@@ -5,14 +5,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: webmaps
     ports:
       - "8080:80"
     restart: unless-stopped
     networks:
       - webmap-network
     healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://localhost:80"]
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -21,7 +20,6 @@ services:
   # Optional: MySQL database for future features
   webmapdb:
     image: mysql:8.0
-    container_name: webmapdb
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-webmap2025}
