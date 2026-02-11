@@ -970,6 +970,78 @@
         </div>
     </div>
 
+    <!-- Biarritz Detail Modal -->
+    <div class="detail-modal" id="biarritz-modal">
+        <div class="detail-content">
+            <div class="detail-header" style="background: linear-gradient(135deg, #3b82f6, #60a5fa);">
+                <h2>Biarritz - Costa Vasca</h2>
+                <button class="detail-close" onclick="closeBiarritzModal()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="detail-body">
+                <div class="detail-section">
+                    <h3>🏖️ Biarritz - Playa y Glamour</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px;">Ciudad costera elegante en el <strong>País Vasco francés</strong>. Famosa por sus playas, su cultura del surf, el casino y el <strong>Rocher de la Vierge</strong>. Paseo marítimo espectacular con vistas al Atlántico. Ambiente sofisticado con historia de la Belle Époque.</p>
+                </div>
+                <div class="detail-section">
+                    <h3>🅿️ Dónde Aparcar</h3>
+                    <div class="detail-card highlight" style="border-left: 3px solid #3b82f6;">
+                        <h4>🅿️ Parking Indigo Biarritz Casino</h4>
+                        <p style="color: var(--text-secondary); margin-top: 4px;">Parking cubierto junto al <strong>Casino Municipal</strong> y la <strong>Grande Plage</strong>. Ubicación céntrica ideal para acceder a pie a las playas, el centro y el paseo marítimo.</p>
+                        <ul class="detail-list" style="margin-top: 8px;">
+                            <li><span class="label">Dirección</span><span class="value">1 Avenue Édouard VII, Biarritz</span></li>
+                            <li><span class="label">Tipo</span><span class="value">Cubierto · 24h</span></li>
+                            <li><span class="label">A pie</span><span class="value">2 min Grande Plage · 5 min Rocher de la Vierge</span></li>
+                        </ul>
+                        <div style="margin-top: 10px;">
+                            <a href="https://maps.app.goo.gl/d1uBMSbgJP7xVUpJ7" target="_blank" class="detail-link" style="background: linear-gradient(135deg, #3b82f6, #60a5fa);">📍 Ver en Google Maps</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3>⭐ Qué Ver</h3>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div class="detail-card" style="border-left: 3px solid #3b82f6;">
+                            <h4>🪨 Rocher de la Vierge</h4>
+                            <p style="color: var(--text-secondary); margin-top: 4px;">Icono de Biarritz. Roca conectada al continente por una pasarela metálica diseñada por Eiffel. Vistas 360° al océano.</p>
+                        </div>
+                        <div class="detail-card" style="border-left: 3px solid #f59e0b;">
+                            <h4>🏖️ Grande Plage</h4>
+                            <p style="color: var(--text-secondary); margin-top: 4px;">Playa principal de Biarritz. Arena fina, olas para surfistas y paseo bordeado de edificios Belle Époque.</p>
+                        </div>
+                        <div class="detail-card" style="border-left: 3px solid #ef4444;">
+                            <h4>🎰 Casino Municipal</h4>
+                            <p style="color: var(--text-secondary); margin-top: 4px;">Edificio Art Déco frente al mar. Restaurante, sala de espectáculos y piscina exterior junto al parking.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3>🌤️ Tiempo en Biarritz</h3>
+                    <div class="detail-weather">
+                        <div class="detail-weather-icon" id="biarritz-weather-icon"><div class="loading-spinner"></div></div>
+                        <div class="detail-weather-info">
+                            <h4 id="biarritz-temp">--°C</h4>
+                            <p id="biarritz-condition">Cargando...</p>
+                        </div>
+                        <div style="margin-left: auto; text-align: right;">
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">Viento: <span id="biarritz-wind">-- km/h</span></p>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">Humedad: <span id="biarritz-humidity">--%</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3>🔗 Enlaces Útiles</h3>
+                    <div class="detail-links">
+                        <a href="https://maps.app.goo.gl/d1uBMSbgJP7xVUpJ7" target="_blank" class="detail-link" style="background: linear-gradient(135deg, #3b82f6, #60a5fa);">🅿️ Parking Indigo Casino</a>
+                        <a href="https://tourisme.biarritz.fr/es" target="_blank" class="detail-link">🏖️ Turismo Biarritz</a>
+                        <a href="https://maps.app.goo.gl/biarritz" target="_blank" class="detail-link" style="background: var(--secondary);">📍 Google Maps</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         try { lucide.createIcons(); } catch(e) { console.warn('Lucide init:', e); }
@@ -1205,6 +1277,7 @@
 
         // === FLY TO POI ===
         function flyToPOI(poiKey) {
+            if (poiKey === 'biarritz') openBiarritzModal();
             if (poiKey === 'cauterets') openCauteretsModal();
             if (poiKey === 'toulouse') openToulouseModal();
             if (poiKey === 'betharram') openBetharramModal();
@@ -1385,6 +1458,31 @@
             } catch (e) { console.error('Betharram weather:', e); }
         }
 
+        // === BIARRITZ MODAL ===
+        function openBiarritzModal() {
+            document.getElementById('biarritz-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            fetchBiarritzWeather();
+        }
+        function closeBiarritzModal() {
+            document.getElementById('biarritz-modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        async function fetchBiarritzWeather() {
+            try {
+                var resp = await fetch('https://api.open-meteo.com/v1/forecast?latitude=43.4832&longitude=-1.5586&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=Europe/Paris');
+                var data = await resp.json();
+                if (data.current) {
+                    document.getElementById('biarritz-temp').textContent = Math.round(data.current.temperature_2m) + '°C';
+                    document.getElementById('biarritz-condition').textContent = getWeatherDescription(data.current.weather_code);
+                    document.getElementById('biarritz-wind').textContent = Math.round(data.current.wind_speed_10m) + ' km/h';
+                    document.getElementById('biarritz-humidity').textContent = data.current.relative_humidity_2m + '%';
+                    document.getElementById('biarritz-weather-icon').innerHTML = getWeatherIcon(data.current.weather_code, 40);
+                }
+            } catch (e) { console.error('Biarritz weather:', e); }
+        }
+
         // === PAU MODAL ===
         function openPauModal() {
             document.getElementById('pau-modal').classList.add('active');
@@ -1413,6 +1511,7 @@
         // === MODAL CLOSE HANDLERS ===
         document.addEventListener('click', function(e) {
             if (e.target.classList.contains('detail-modal')) {
+                closeBiarritzModal();
                 closeCauteretsModal();
                 closeToulouseModal();
                 closeBetharramModal();
@@ -1422,6 +1521,7 @@
         });
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
+                closeBiarritzModal();
                 closeCauteretsModal();
                 closeToulouseModal();
                 closeBetharramModal();
