@@ -475,6 +475,11 @@
                         <div class="poi-info"><h4>Cauterets</h4><p>Estación de esquí</p></div>
                         <span class="poi-day">Día 3</span>
                     </div>
+                    <div class="poi-item" onclick="flyToPOI('betharram')">
+                        <div class="poi-marker" style="background: linear-gradient(135deg, #14b8a6, #2dd4bf);"><i data-lucide="gem"></i></div>
+                        <div class="poi-info"><h4>Bétharram</h4><p>Grutas subterráneas</p></div>
+                        <span class="poi-day">Día 2</span>
+                    </div>
                     <div class="poi-item" onclick="flyToPOI('toulouse')">
                         <div class="poi-marker" style="background: linear-gradient(135deg, #ef4444, #f87171);"><i data-lucide="rocket"></i></div>
                         <div class="poi-info"><h4>Toulouse</h4><p>Cité de l'Espace</p></div>
@@ -678,6 +683,101 @@
         </div>
     </div>
 
+    <!-- Bétharram Detail Modal -->
+    <div class="detail-modal" id="betharram-modal">
+        <div class="detail-content">
+            <div class="detail-header" style="background: linear-gradient(135deg, #14b8a6, #2dd4bf);">
+                <h2>Grottes de Bétharram</h2>
+                <button class="detail-close" onclick="closeBetharramModal()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="detail-body">
+                <div class="detail-section">
+                    <h3>💎 Sobre las Grutas</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px;">Una de las primeras cuevas abiertas al público (desde 1903). Recorrido espectacular de <strong>1h20 min</strong> con guía por 5 niveles de galerías con estalactitas y estalagmitas, paseo en <strong>barca por el río subterráneo</strong> y 700m en <strong>petit train</strong> dentro de las grutas. Temperatura constante de 14°C.</p>
+                </div>
+                <div class="detail-section">
+                    <h3>🕐 Horarios 2026</h3>
+                    <ul class="detail-list">
+                        <li><span class="label">9 Feb → 6 Mar</span><span class="value">Lun-Vie: 14:00 - 16:30</span></li>
+                        <li><span class="label">23 Mar → 5 Jul</span><span class="value">9:30-12:00 y 13:30-16:30</span></li>
+                        <li><span class="label">6 Jul → 23 Ago</span><span class="value">9:00 - 18:00 (continuo)</span></li>
+                        <li><span class="label">24 Ago → 1 Nov</span><span class="value">9:30-12:00 y 13:30-16:30</span></li>
+                    </ul>
+                    <div style="margin-top: 10px; padding: 10px; background: rgba(20,184,166,0.1); border-radius: var(--radius-sm); font-size: 0.85rem; color: var(--text-secondary);">⚠️ Llegar <strong>30 min antes</strong> de la visita. Un autobús lanzadera lleva a la entrada de las cuevas. <strong>Reservar online</strong> muy recomendable.</div>
+                </div>
+                <div class="detail-section">
+                    <h3>💰 Precios</h3>
+                    <div class="detail-grid">
+                        <div class="detail-card"><h4>ADULTO</h4><div class="price">17€</div><p>Tarifa normal</p></div>
+                        <div class="detail-card highlight"><h4>NIÑO (4-12)</h4><div class="price">12€</div><p>De 4 a 12 años</p></div>
+                        <div class="detail-card"><h4>ADULTO REDUCIDA</h4><div class="price">15€</div><p>Con justificante</p></div>
+                        <div class="detail-card"><h4>NIÑO REDUCIDA</h4><div class="price">10,50€</div><p>4-12 años con descuento</p></div>
+                    </div>
+                    <div style="margin-top: 12px; text-align: center;">
+                        <a href="https://betharram.qweekle.com/shop/betharram?lang=en" target="_blank" class="detail-link" style="background: linear-gradient(135deg, #14b8a6, #2dd4bf);">🎟️ Comprar Entradas Online</a>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3>⏱️ Duración y Experiencia</h3>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div class="detail-card" style="border-left: 3px solid #14b8a6;">
+                            <h4>🚶 Recorrido a pie</h4>
+                            <p style="color: var(--text-secondary); margin-top: 4px;">Visita guiada por 5 niveles de galerías con formaciones calcáreas espectaculares.</p>
+                        </div>
+                        <div class="detail-card" style="border-left: 3px solid #3b82f6;">
+                            <h4>🚣 Paseo en barca</h4>
+                            <p style="color: var(--text-secondary); margin-top: 4px;">Navegación por el río subterráneo en el interior de las grutas.</p>
+                        </div>
+                        <div class="detail-card" style="border-left: 3px solid #f59e0b;">
+                            <h4>🚂 Petit Train (700m)</h4>
+                            <p style="color: var(--text-secondary); margin-top: 4px;">Recorrido final en tren por las galerías. ¡Una experiencia única!</p>
+                        </div>
+                        <div class="detail-card" style="border-left: 3px solid var(--text-muted);">
+                            <h4>🌡️ Temperatura: 14°C</h4>
+                            <p style="color: var(--text-secondary); margin-top: 4px;">Constante todo el año. Llevar chaqueta ligera. No se permiten cochecitos (hay escalones).</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3>🚗 Cómo Llegar</h3>
+                    <ul class="detail-list">
+                        <li><span class="label">Dirección</span><span class="value">Chemin Léon Ross, Saint-Pé-de-Bigorre</span></li>
+                        <li><span class="label">Desde Lourdes</span><span class="value">~15 min en coche (14 km)</span></li>
+                        <li><span class="label">Teléfono</span><span class="value">+33 5 62 41 80 04</span></li>
+                    </ul>
+                    <div style="margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap;">
+                        <a href="https://maps.app.goo.gl/betharram" target="_blank" class="detail-link">📍 Ver en Google Maps</a>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3>🌤️ Tiempo en Bétharram</h3>
+                    <div class="detail-weather">
+                        <div class="detail-weather-icon" id="betharram-weather-icon"><div class="loading-spinner"></div></div>
+                        <div class="detail-weather-info">
+                            <h4 id="betharram-temp">--°C</h4>
+                            <p id="betharram-condition">Cargando...</p>
+                        </div>
+                        <div style="margin-left: auto; text-align: right;">
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">Viento: <span id="betharram-wind">-- km/h</span></p>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">Humedad: <span id="betharram-humidity">--%</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3>🔗 Enlaces Útiles</h3>
+                    <div class="detail-links">
+                        <a href="https://betharram.qweekle.com/shop/betharram?lang=en" target="_blank" class="detail-link" style="background: linear-gradient(135deg, #14b8a6, #2dd4bf);">🎟️ Reservar Visita</a>
+                        <a href="https://www.betharram.com/pagina/horarios-y-precios" target="_blank" class="detail-link">📅 Horarios y Precios</a>
+                        <a href="https://www.betharram.com/pagina/explore-nuestras-cuevas" target="_blank" class="detail-link" style="background: var(--secondary);">🔦 Explorar las Cuevas</a>
+                        <a href="tel:+33562418004" class="detail-link" style="background: var(--accent); color: #1e293b;">📞 05 62 41 80 04</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         try { lucide.createIcons(); } catch(e) { console.warn('Lucide init:', e); }
@@ -707,6 +807,11 @@
                 zonas: ['Snowpark', 'Zona luge', 'Zona débutant', 'Boardercross', 'Fun Line'],
                 servicios: ['Restaurantes', 'Bares', 'Guardería', 'Primeros auxilios', 'Taquilla'],
                 remontes: ['Telecabinas', 'Telesillas', 'Teleesquís', 'Cintas transportadoras']
+            },
+            betharram: {
+                name: 'Bétharram', coords: [43.0856, -0.2139],
+                description: 'Grutas espectaculares con 1h20 de visita guiada: a pie, en barca y en tren subterráneo.',
+                tag: 'Cuevas y Aventura', icon: 'gem', color: '#14b8a6'
             },
             toulouse: {
                 name: 'Toulouse', coords: [43.5867, 1.4911],
@@ -746,7 +851,8 @@
                 'landmark': '<line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/>',
                 'church': '<path d="m18 7 4 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9l4-2"/><path d="M14 22v-4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v4"/><path d="M18 22V5l-6-3-6 3v17"/><path d="M12 7v5"/><path d="M10 9h4"/>',
                 'mountain-snow': '<path d="m8 3 4 8 5-5 5 15H2L8 3z"/><path d="M4.14 15.08c2.62-1.57 5.24-1.43 7.86.42 2.74 1.94 5.49 2 8.23.19"/>',
-                'rocket': '<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>'
+                'rocket': '<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>',
+                'gem': '<path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/>'
             };
             return icons[icon] || '';
         }
@@ -909,6 +1015,7 @@
         function flyToPOI(poiKey) {
             if (poiKey === 'cauterets') openCauteretsModal();
             if (poiKey === 'toulouse') openToulouseModal();
+            if (poiKey === 'betharram') openBetharramModal();
             var poi = poiData[poiKey];
             map.flyTo(poi.coords, 12, { duration: 1.5 });
             markers[poiKey].openPopup();
@@ -1034,17 +1141,44 @@
             } catch (e) { console.error('Toulouse weather:', e); }
         }
 
+        // === BÉTHARRAM MODAL ===
+        function openBetharramModal() {
+            document.getElementById('betharram-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            fetchBetharramWeather();
+        }
+        function closeBetharramModal() {
+            document.getElementById('betharram-modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        async function fetchBetharramWeather() {
+            try {
+                var resp = await fetch('https://api.open-meteo.com/v1/forecast?latitude=43.0856&longitude=-0.2139&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=Europe/Paris');
+                var data = await resp.json();
+                if (data.current) {
+                    document.getElementById('betharram-temp').textContent = Math.round(data.current.temperature_2m) + '°C';
+                    document.getElementById('betharram-condition').textContent = getWeatherDescription(data.current.weather_code);
+                    document.getElementById('betharram-wind').textContent = Math.round(data.current.wind_speed_10m) + ' km/h';
+                    document.getElementById('betharram-humidity').textContent = data.current.relative_humidity_2m + '%';
+                    document.getElementById('betharram-weather-icon').innerHTML = getWeatherIcon(data.current.weather_code, 40);
+                }
+            } catch (e) { console.error('Betharram weather:', e); }
+        }
+
         // === MODAL CLOSE HANDLERS ===
         document.addEventListener('click', function(e) {
             if (e.target.classList.contains('detail-modal')) {
                 closeCauteretsModal();
                 closeToulouseModal();
+                closeBetharramModal();
             }
         });
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeCauteretsModal();
                 closeToulouseModal();
+                closeBetharramModal();
             }
         });
 
