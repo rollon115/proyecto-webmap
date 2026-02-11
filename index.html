@@ -1016,6 +1016,7 @@
             if (poiKey === 'cauterets') openCauteretsModal();
             if (poiKey === 'toulouse') openToulouseModal();
             if (poiKey === 'betharram') openBetharramModal();
+            if (poiKey === 'lourdes') openLourdesModal();
             var poi = poiData[poiKey];
             map.flyTo(poi.coords, 12, { duration: 1.5 });
             markers[poiKey].openPopup();
@@ -1141,6 +1142,31 @@
             } catch (e) { console.error('Toulouse weather:', e); }
         }
 
+        // === LOURDES MODAL ===
+        function openLourdesModal() {
+            document.getElementById('lourdes-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            fetchLourdesModalWeather();
+        }
+        function closeLourdesModal() {
+            document.getElementById('lourdes-modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        async function fetchLourdesModalWeather() {
+            try {
+                var resp = await fetch('https://api.open-meteo.com/v1/forecast?latitude=43.0964&longitude=-0.0458&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=Europe/Paris');
+                var data = await resp.json();
+                if (data.current) {
+                    document.getElementById('lourdes-temp').textContent = Math.round(data.current.temperature_2m) + '°C';
+                    document.getElementById('lourdes-condition').textContent = getWeatherDescription(data.current.weather_code);
+                    document.getElementById('lourdes-wind').textContent = Math.round(data.current.wind_speed_10m) + ' km/h';
+                    document.getElementById('lourdes-humidity').textContent = data.current.relative_humidity_2m + '%';
+                    document.getElementById('lourdes-weather-icon').innerHTML = getWeatherIcon(data.current.weather_code, 40);
+                }
+            } catch (e) { console.error('Lourdes modal weather:', e); }
+        }
+
         // === BÉTHARRAM MODAL ===
         function openBetharramModal() {
             document.getElementById('betharram-modal').classList.add('active');
@@ -1172,6 +1198,7 @@
                 closeCauteretsModal();
                 closeToulouseModal();
                 closeBetharramModal();
+                closeLourdesModal();
             }
         });
         document.addEventListener('keydown', function(e) {
@@ -1179,6 +1206,7 @@
                 closeCauteretsModal();
                 closeToulouseModal();
                 closeBetharramModal();
+                closeLourdesModal();
             }
         });
 
