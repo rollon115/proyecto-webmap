@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
     <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
 
     <style>
         :root {
@@ -1072,7 +1072,7 @@
 
     <script>
         // Initialize Lucide icons
-        lucide.createIcons();
+        try { lucide.createIcons(); } catch(e) { console.warn('Lucide init failed:', e); }
 
         // Points of Interest Data
         const poiData = {
@@ -1233,7 +1233,7 @@
         // Fetch real road routes using OSRM API
         async function fetchRoadRoute(from, to) {
             const response = await fetch(
-                `https://router.project-osrm.org/route/v1/driving/${from[1]},${to[1]};${from[0]},${to[0]}?overview=full&geometries=geojson`
+                `https://router.project-osrm.org/route/v1/driving/${from[1]},${from[0]};${to[1]},${to[0]}?overview=full&geometries=geojson`
             );
             const data = await response.json();
             if (data.routes && data.routes[0]) {
@@ -1515,11 +1515,16 @@
             }
         }
 
-        // Initialize on page load
-        drawAllRoutes();
+        // Initialize on page load - each block independent
+        // Weather loads immediately, no dependency on routes
         fetchWeather();
-        // Refresh weather every 5 minutes
         setInterval(fetchWeather, 300000);
+
+        // Routes load separately
+        drawAllRoutes().catch(err => console.warn('Routes error:', err));
+
+        // Also update traffic
+        try { updateTraffic(); } catch(e) { console.warn('Traffic init error:', e); }
     </script>
 
     <!-- Cauterets Detail Modal -->
